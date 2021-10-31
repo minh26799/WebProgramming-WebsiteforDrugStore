@@ -19,10 +19,6 @@ $connection = new mysqli($servername, $username, $password, $dbname);
 
 
 if($connection->connect_error){
-    $createDB = initialDB();
-    if($createDB != null){
-        echo "ERROR: ". $createDB;
-    }
     die("Connection failed: " . $connection->connect_error);
 }
 
