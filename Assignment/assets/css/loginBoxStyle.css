@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+*:focus {
+    outline: none;
+}
+
+ :root {
+    --finalFont: 'Roboto', sans-serif;
+    --round: 10px;
+    --backgroundColor: linear-gradient(120deg, #8dc4e9, #0c1ea9);
+    --height: 340px;
+}
+
+body {
+    background: var(--backgroundColor);
+    font-size: 16px;
+    color: #222;
+    font-family: var(--finalFont);
+    font-weight: 300;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#login-box {
+    position: relative;
+    width: 300px;
+    height: var(--height);
+    margin: 130px auto;
+    box-sizing: border-box;
+    background: #FFF;
+    border-radius: var(--round);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+    padding: 0 20px;
+    width: 300px;
+    height: var(--height);
+}
+
+#username-input,
+#password-input {
+    display: block;
+    box-sizing: border-box;
+    padding: 4px;
+    width: 100%;
+    height: 32px;
+    border: none;
+    border-bottom: 1px solid #AAA;
+    font-family: var(--finalFont);
+    font-weight: 400;
+    font-size: 15px;
+    transition: 0.2s ease;
+    border-radius: var(--round);
+}
+
+#username-input {
+    margin-bottom: 20px;
+}
+
+#password-input {
+    margin-bottom: 5px;
+}
+
+#username-input:focus,
+#password-input:focus {
+    border-bottom: 2px solid var(--backgroundColor);
+    color: var(--backgroundColor);
+    transition: 0.2s ease;
+}
+
+#login-btn {
+    margin-top: 15px;
+    width: 100%;
+    height: 32px;
+    background: var(--backgroundColor);
+    border: none;
+    border-radius: 25px;
+    color: #FFF;
+    font-family: var(--finalFont);
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    cursor: pointer;
+}
+
+.social-signin:focus,
+.social-signin:hover,
+#login-btn:hover,
+#login-btn:focus {
+    opacity: 0.8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+}
+
+.social-signin:active,
+#login-btn:active {
+    opacity: 1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+}
+
+.left #login-btn {
+    position: relative;
+}
+
+.left #RegisterBtn {
+    position: absolute;
+    bottom: 20%;
+}
+
+.left>h1 {
+    text-align: center;
+    margin: 20px;
+}
+
+.left>#notMember {
+    position: absolute;
+    bottom: 10%;
+    left: 21%;
+    transform: translateY(-50%);
+    color: #adadad;
+}
+
+.left>#notMember>#signup-link {
+    text-decoration: none;
+    color: #2691d9;
+}
+
+.left #forgotPassword {
+    color: #695555;
+    font-size: 12px;
+    position: relative;
+    left: 60%;
+}
+
+button.social-signin {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border: none;
+    transition: 0.2s ease;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #ddd;
+}
+
+button.social-signin:hover,
+button.social-signin:focus {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+}
+
+button.social-signin:active {
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+}
+
+button.social-signin.facebook {
+    left: 50%;
+}
+
+button.social-signin.twitter {
+    left: 100%;
+}
+
+button.social-signin.microsoft {
+    left: 0;
+}
+
+.bottom-icon {
+    position: absolute;
+    bottom: -2%;
+    left: 25%;
+    width: 100px;
+    height: 30px;
+}
+
+.error #error-message {
+    text-align: center;
+    font-size: 16px;
+    color: red;
+    margin-bottom: 10px;
+}
