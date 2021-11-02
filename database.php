@@ -1,5 +1,4 @@
 <?php 
-
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -8,7 +7,7 @@ $dbname = "webDB";
 
 $conn = new mysqli($servername, $username, $password);
 
-$db = "CREATE DATABASE webDB";
+$db = "CREATE DATABASE IF NOT EXISTS webDB";
 if($conn->query($db) === TRUE){
     echo "db created!";
 } else{ 
@@ -21,8 +20,9 @@ $connection = new mysqli($servername, $username, $password, $dbname);
 if($connection->connect_error){
     die("Connection failed: " . $connection->connect_error);
 }
+$connection->query($db);
 
-$usertable = "CREATE TABLE `users` (
+$usertable = "CREATE TABLE IF NOT EXISTS `users` (
     `uid` VARCHAR(40) NOT NULL,
     `username` VARCHAR(256) NOT NULL ,
     `password` VARCHAR(256) NOT NULL,
@@ -31,7 +31,8 @@ $usertable = "CREATE TABLE `users` (
     `phone` VARCHAR(15),
     PRIMARY KEY (`uid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-$transactiontable = "CREATE TABLE `transactions`(
+
+$transactiontable = "CREATE TABLE IF NOT EXISTS `transactions`(
     `tid` VARCHAR(40) NOT NULL,
     `userid` VARCHAR(40) NOT NULL,
     `pid` VARCHAR(40) NOT NULL,
@@ -42,7 +43,8 @@ $transactiontable = "CREATE TABLE `transactions`(
     FOREIGN KEY (`pid`) REFERENCES `products` (`pid`),
     CONSTRAINT `FK_UserTransactions` FOREIGN KEY (`userid`) REFERENCES `users`(`uid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-$producttable = "CREATE TABLE `products`(
+
+$producttable = "CREATE TABLE IF NOT EXISTS `products`(
     `pid` VARCHAR(40) NOT NULL,
     `productname` VARCHAR(100) NOT NULL,
     `condition` VARCHAR(256) NOT NULL, 
@@ -50,9 +52,9 @@ $producttable = "CREATE TABLE `products`(
     `pharmacyid` VARCHAR(40) NOT NULL,
     CONSTRAINT `belongto` FOREIGN KEY (`pharmacyid`) REFERENCES `pharmacy`(`phid`),
     PRIMARY KEY (`pid`, `pharmacyid`)
-
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
-$pharmacytable = "CREATE TABLE `pharmacy`(
+
+$pharmacytable = "CREATE TABLE IF NOT EXISTS `pharmacy`(
     `phid` VARCHAR(40) NOT NULL,
     `name` VARCHAR(100) NOT NULL,
     `latitude` FLOAT NOT NULL,
@@ -62,7 +64,7 @@ $pharmacytable = "CREATE TABLE `pharmacy`(
 
 
 $uchecker = $connection->query($usertable);
-$phchecker = $connection-> query($pharmacytable);
+$phchecker = $connection->query($pharmacytable);
 $pchecker = $connection->query($producttable);
 $tchecker = $connection->query($transactiontable);
 
@@ -78,5 +80,7 @@ if($uchecker != TRUE) {
 } else {
     echo "tables created!";
 }
+
+$connection->close();
 
 ?>
