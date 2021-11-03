@@ -31,11 +31,23 @@
             width: 300px;
             min-height: 100px;
             box-sizing: border-box;
-            padding: 20px 40px;
+            padding: 20px 30px;
             align-self: center;
             background: #FFF;
             border-radius: var(--round);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        
+        .form-message.error {
+            margin-left: 24%;
+            font-size: 14px;
+            color: #f33a58;
+        }
+        
+        .form-message.success {
+            margin-left: 20%;
+            font-size: 14px;
+            color: #1dbfaf;
         }
         
         .input-field {
@@ -56,6 +68,7 @@
             margin-bottom: 10px;
             flex-direction: column;
             border-color: #1dbfaf;
+            margin-bottom: 10px;
         }
         
         .form-control:hover {
@@ -92,6 +105,7 @@
             font-family: 'Roboto', sans-serif;
             font-weight: 400;
             font-size: 14px;
+            margin-bottom: 4px;
             transition: 0.2s ease;
             border-radius: var(--round);
         }
@@ -103,6 +117,7 @@
             transition: 0.2s ease;
         }
         
+        #back-to-login,
         #sign-up-button {
             margin-top: 15px;
             width: 100%;
@@ -124,7 +139,7 @@
         #sign-up-button:hover,
         #sign-up-button:focus {
             opacity: 0.8;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 1px 2px #1dbfaf;
             transition: 0.2s ease;
         }
         
@@ -134,7 +149,7 @@
             transition: 0.2s ease;
         }
         
-        h1 {
+        .register-content {
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }

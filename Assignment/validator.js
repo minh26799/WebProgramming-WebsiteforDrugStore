@@ -1,3 +1,8 @@
+function getParameter(parameterName) {
+    let parameter = new URLSearchParams(window.location.search);
+    return parameter.get(parameterName);
+}
+
 // Đối tượng `Validator`
 function Validator(options) {
     function getParent(element, selector) {
@@ -69,7 +74,6 @@ function Validator(options) {
                 if (typeof options.onSubmit === 'function') {
                     var enableInputs = formElement.querySelectorAll('[name]');
                     var formValues = Array.from(enableInputs).reduce(function(values, input) {
-
                         switch (input.type) {
                             case 'radio':
                                 values[input.name] = formElement.querySelector('input[name="' + input.name + '"]:checked').value;
@@ -90,7 +94,6 @@ function Validator(options) {
                             default:
                                 values[input.name] = input.value;
                         }
-
                         return values;
                     }, {});
                     options.onSubmit(formValues);
@@ -155,6 +158,28 @@ Validator.isEmail = function(selector, message) {
             return regex.test(value) ? undefined : message || 'Trường này phải là email';
         }
     };
+}
+
+Validator.usernameCheck = function(selector, message) {
+    return {
+        selector: selector,
+        test: function(value) {
+            // var regex = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+            if (/[a-zA-Z0-9]{8,12}/.test(value) == false) {
+                return "Username must between 8 - 20 characters";
+            } else if (/(?=.*[A-Z])/.test(value) == false) {
+                return "Username must contain at least a uppercase";
+            } else if (/(?=.*\d)/.test(value) == false) {
+                return "Username only contains 1 digit";
+            } else if (/[a-zA-Z0-9._]/.test(value) == false) {
+                return "Username contains not allowed words";
+            } else if (/(?=.*[a-z])/.test(value) == false) {
+                return "Username must contain at least a lowercase";
+            } else
+                return undefined;
+            return regex.test(value) ? undefined : message || 'Trường này phải là email';
+        }
+    }
 }
 
 Validator.minLength = function(selector, min, message) {
