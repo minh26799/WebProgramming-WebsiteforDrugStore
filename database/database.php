@@ -91,5 +91,4 @@ if($uchecker != TRUE) {
 }
 
 $connection->close();
-
 ?>
