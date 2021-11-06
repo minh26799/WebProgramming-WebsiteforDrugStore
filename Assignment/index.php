@@ -32,7 +32,7 @@
             Forgot password?
         </div>
         <input type="submit" name="login_submit" value="Login" id="login-btn"/>
-        <div id="notMember">Not a member? <a href="./registerBox.php" id="signup-link">Sign up</a></div>
+        <div id="notMember">Not a member? <a href="./register.php" id="signup-link">Sign up</a></div>
         <div class="bottom-icon">
             <button class="social-signin facebook" type="button">
                 <ion-icon name="logo-facebook" size="small"></ion-icon>
@@ -65,7 +65,7 @@
         var error = getParameter('error');
         var element = document.getElementById('response');
         if (error) {
-            element.innerHTML = "Incorect Username or Password";
+            element.innerHTML = error;
             element.classList.remove("success");
             element.classList.add("error");
             window.history.pushState('name', '', baseURL);

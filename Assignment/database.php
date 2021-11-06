@@ -16,16 +16,14 @@ if($conn->query($db) === TRUE){
 
 $connection = new mysqli($servername, $username, $password, $dbname);
 
-
 if($connection->connect_error){
     die("Connection failed: " . $connection->connect_error);
 }
-$db = "USE WebDB";
 $connection->query($db);
 
 $usertable = "CREATE TABLE IF NOT EXISTS `users` (
-    `uid` VARCHAR(40) UNIQUE NOT NULL,
-    `username` VARCHAR(256) UNIQUE NOT NULL ,
+    `uid` VARCHAR(40) NOT NULL,
+    `username` VARCHAR(256) NOT NULL UNIQUE,
     `password` VARCHAR(256) NOT NULL,
     `firstname` VARCHAR(50),
     `lastname` VARCHAR(50),
@@ -47,28 +45,47 @@ $transactiontable = "CREATE TABLE IF NOT EXISTS `transactions`(
 
 $producttable = "CREATE TABLE IF NOT EXISTS `products`(
     `pid` VARCHAR(40) NOT NULL,
-    `productname` VARCHAR(100) NOT NULL,
+    `productname` VARCHAR(100) NOT NULL UNIQUE,
     `condition` VARCHAR(256) NOT NULL, 
     `price` FLOAT NOT NULL,
+    `description` VARCHAR(300) NOT NULL,
+    PRIMARY KEY (`pid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+$incart = "CREATE TABLE IF NOT EXISTS `incart`(
+    `date` datetime NOT NULL,
+    `quantity` INT NOT NULL,
+    `userid` VARCHAR(40) NOT NULL UNIQUE,
+    `productid` VARCHAR(40) NOT NULL UNIQUE,
+    FOREIGN KEY (`productid`) REFERENCES `products` (`pid`),
+    FOREIGN KEY (`userid`) REFERENCES `users`(`uid`),
+    PRIMARY KEY (`userid`, `productid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
+$belongto = "CREATE TABLE IF NOT EXISTS `belongto`(
     `pharmacyid` VARCHAR(40) NOT NULL,
-    CONSTRAINT `belongto` FOREIGN KEY (`pharmacyid`) REFERENCES `pharmacy`(`phid`),
-    PRIMARY KEY (`pid`, `pharmacyid`)
+    `productid` VARCHAR(40) NOT NULL,
+    `quantity` INT NOT NULL,
+    FOREIGN KEY (`productid`) REFERENCES `products` (`pid`),
+    FOREIGN KEY (`pharmacyid`) REFERENCES `pharmacy` (`phid`),
+    PRIMARY KEY (`productid`, `pharmacyid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
 $pharmacytable = "CREATE TABLE IF NOT EXISTS `pharmacy`(
     `phid` VARCHAR(40) NOT NULL,
-    `name` VARCHAR(100) NOT NULL,
-    `latitude` FLOAT NOT NULL,
-    `longitude` FLOAT NOT NULL,
+    `name` VARCHAR(100) NOT NULL UNIQUE,
+    `latitude` FLOAT NOT NULL UNIQUE,
+    `longitude` FLOAT NOT NULL UNIQUE,
     PRIMARY KEY (`phid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
 
 $uchecker = $connection->query($usertable);
-$phchecker = $connection-> query($pharmacytable);
+$phchecker = $connection->query($pharmacytable);
 $pchecker = $connection->query($producttable);
+$incartchecker = $connection->query($incart);
 $tchecker = $connection->query($transactiontable);
-
+$belong = $connection->query($belongto);
 
 if($uchecker != TRUE) {
     echo "ERROR: ". $connection->error;
@@ -78,8 +95,13 @@ if($uchecker != TRUE) {
     echo "ERROR: ". $connection->error;
 } else if ($phchecker !== TRUE){
     echo "ERROR: ". $connection->error;
-} else {
+} else if ($belong !== TRUE){
+    echo "ERROR: ". $connection->error;
+} else if ($incartchecker !== TRUE){
+    echo "ERROR: ". $connection->error;
+} else  {
     echo "tables created!";
 }
+
 $connection->close();
 ?>

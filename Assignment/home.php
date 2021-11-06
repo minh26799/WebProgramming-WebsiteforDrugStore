@@ -1,7 +1,7 @@
 <?php
 session_start();
 //check if session is valid
-if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
+if (isset($_SESSION['id']) && isset($_SESSION['fullname'])) {
 
 ?>
     <!DOCTYPE html>
@@ -9,8 +9,6 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
 
     <head>
         <title>HOME</title>
-        <link rel="stylesheet" href="./assets/Icon/themify-icons.css">
-        
         <style>
             .background {
                 font-family: Arial, Helvetica, sans-serif;
@@ -23,12 +21,11 @@ if (isset($_SESSION['id']) && isset($_SESSION['username'])) {
                 left: 0;
             }
         </style>
-        <link rel="stylesheet" href="./assets/css/style.css">
     </head>
 
     <body>
         <div class="background">
-            <h1>Hello, <?php echo $_SESSION['firstname']." ".$_SESSION['lastname']; ?></h1>
+            <h1>Hello, <?php echo $_SESSION['fullname']; ?></h1>
             <a href="logout.php">Logout</a>
         </div>
     </body>

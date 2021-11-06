@@ -3,7 +3,7 @@ function getParameter(parameterName) {
     return parameter.get(parameterName);
 }
 
-// Đối tượng `Validator`
+// Validator object
 function Validator(options) {
     function getParent(element, selector) {
         while (element.parentElement) {
@@ -16,16 +16,15 @@ function Validator(options) {
 
     var selectorRules = {};
 
-    // Hàm thực hiện validate
+    // Validate function handling
     function validate(inputElement, rule) {
         var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector);
         var errorMessage;
 
-        // Lấy ra các rules của selector
+        // Get rules from selector
         var rules = selectorRules[rule.selector];
 
-        // Lặp qua từng rule & kiểm tra
-        // Nếu có lỗi thì dừng việc kiểm
+        //Loop though rules and test, if there is an error, stop
         for (var i = 0; i < rules.length; ++i) {
             switch (inputElement.type) {
                 case 'radio':
@@ -51,16 +50,16 @@ function Validator(options) {
         return !errorMessage;
     }
 
-    // Lấy element của form cần validate
+    // GET data from form
     var formElement = document.querySelector(options.form);
     if (formElement) {
-        // Khi submit form
+        // submit form handling
         formElement.onsubmit = function(e) {
             e.preventDefault();
 
             var isFormValid = true;
 
-            // Lặp qua từng rules và validate
+            // Loop thourgh all rules and validate them
             options.rules.forEach(function(rule) {
                 var inputElement = formElement.querySelector(rule.selector);
                 var isValid = validate(inputElement, rule);
@@ -70,7 +69,7 @@ function Validator(options) {
             });
 
             if (isFormValid) {
-                // Trường hợp submit với javascript
+                // Submit form with javascript
                 if (typeof options.onSubmit === 'function') {
                     var enableInputs = formElement.querySelectorAll('[name]');
                     var formValues = Array.from(enableInputs).reduce(function(values, input) {
@@ -98,14 +97,14 @@ function Validator(options) {
                     }, {});
                     options.onSubmit(formValues);
                 }
-                // Trường hợp submit với hành vi mặc định
+                // Submit form by default
                 else {
                     formElement.submit();
                 }
             }
         }
 
-        // Lặp qua mỗi rule và xử lý (lắng nghe sự kiện blur, input, ...)
+        // loop through all rules and check each user behavior on input field
         options.rules.forEach(function(rule) {
 
             // Lưu lại các rules cho mỗi input
@@ -118,12 +117,12 @@ function Validator(options) {
             var inputElements = formElement.querySelectorAll(rule.selector);
 
             Array.from(inputElements).forEach(function(inputElement) {
-                // Xử lý trường hợp blur khỏi input
+                // When users leave the input field
                 inputElement.onblur = function() {
                     validate(inputElement, rule);
                 }
 
-                // Xử lý mỗi khi người dùng nhập vào input
+                //When users input something
                 inputElement.oninput = function() {
                     var errorElement = getParent(inputElement, options.formGroupSelector).querySelector(options.errorSelector);
                     errorElement.innerText = '';
@@ -137,10 +136,11 @@ function Validator(options) {
 
 
 
-// Định nghĩa rules
-// Nguyên tắc của các rules:
-// 1. Khi có lỗi => Trả ra message lỗi
-// 2. Khi hợp lệ => Không trả ra cái gì cả (undefined)
+/*
+Define some rules
+if there are errors, return error message
+if there is no errors, return undefined
+ */
 Validator.isRequired = function(selector, message) {
     return {
         selector: selector,
@@ -164,7 +164,7 @@ Validator.usernameCheck = function(selector, message) {
     return {
         selector: selector,
         test: function(value) {
-            // var regex = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/;
+            // ^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
             if (/[a-zA-Z0-9]{8,12}/.test(value) == false) {
                 return "Username must between 8 - 20 characters";
             } else if (/(?=.*[A-Z])/.test(value) == false) {
@@ -175,13 +175,13 @@ Validator.usernameCheck = function(selector, message) {
                 return "Username contains not allowed words";
             } else if (/(?=.*[a-z])/.test(value) == false) {
                 return "Username must contain at least a lowercase";
+            } else if (value === "password" || value === "Password" || value === "PASSWORD") {
+                return "Username cannot be password";
             } else
                 return undefined;
-            return regex.test(value) ? undefined : message || 'Trường này phải là email';
         }
     }
 }
-
 Validator.minLength = function(selector, min, message) {
     return {
         selector: selector,
@@ -196,6 +196,27 @@ Validator.isConfirmed = function(selector, getConfirmValue, message) {
         selector: selector,
         test: function(value) {
             return value === getConfirmValue() ? undefined : message || 'Giá trị nhập vào không chính xác';
+        }
+    }
+}
+
+Validator.phoneCheck = function(selector, message) {
+    return {
+        selector: selector,
+        test: function(value) {
+            var regex = /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/;
+            return regex.test(value) ? undefined : message || 'Trường này phải là số điện thoại';
+        }
+    }
+}
+
+Validator.passwordCheck = function(selector) {
+    return {
+        selector: selector,
+        test: function(value) {
+            if (value === "password" || value === "Password" || value === "PASSWORD") {
+                return "Password cannot be password";
+            } else return undefined;
         }
     }
 }

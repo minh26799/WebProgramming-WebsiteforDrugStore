@@ -43,7 +43,7 @@
         </div>
         <!-- <button id="sign-up-button" type="submit" form="form-1" value="Submit">Register</button> -->
         <input id="sign-up-button" type="submit" name="signup_submit" value="Sign me up" />
-        <input  id= "back-to-login" onclick="location.href='./index.php';" value="Back to Login"></button>
+        <input id="back-to-login" onclick="location.href='./index.php';" value="Back to Login"></button>
     </form>
     <script language="JavaScript" type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
@@ -58,11 +58,13 @@
                     Validator.isRequired('#Firstname', 'Please fill your first name'),
                     Validator.isRequired('#Lastname', 'Please fill your last name'),
                     Validator.isRequired('#Phone', 'Please fill your phone number'),
+                    Validator.phoneCheck('#Phone', 'Phone must be in correct form'),
                     Validator.isRequired('#Password', 'Password must be filled'),
                     Validator.minLength('#Password', 8, 'Password is at least 8 characters'),
                     Validator.isConfirmed('#RetypePassword', function() {
                         return document.querySelector('#Password').value;
-                    }, 'Pasword is not match')
+                    }, 'Pasword is not match'),
+                    Validator.passwordCheck('#Password')
                 ],
             });
         });
@@ -75,21 +77,23 @@
         var baseURL = window.location.href.split("?")[0];
         var success = getParameter('success');
         var error = getParameter('error');
+        console.log(baseURL);
+        console.log(success);
+        console.log(error);
         var element = document.getElementById('response');
         if (success) {
-            element.innerHTML = "Registered Sucessfully";
+            element.innerHTML = success;
             element.classList.remove('error');
             element.classList.add("success");
             window.history.pushState('name', '', baseURL);
         }
         if (error) {
-            element.innerHTML = "Username is taken";
+            element.innerHTML = error;
             element.classList.remove("success");
             element.classList.add("error");
             window.history.pushState('name', '', baseURL);
         }
     </script>
-
 </body>
 
 </html>
