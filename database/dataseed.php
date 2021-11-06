@@ -7,6 +7,7 @@ $dbname = "webDB";
 
 $connection = new mysqli($servername, $username, $password, $dbname);
 
+if($connection->connect_error){
     die("Connection failed: " . $connection->connect_error);
 }
 
@@ -40,39 +41,36 @@ VALUES ('618005651c83c','Acenocoumarol','Cardiovascular and Blood Pressure',2000
 ('618005503a84e','HolistiCare-Ester','Vitamin',82000,'Provides the body need for Vitamin C, enhances resistance.'),
 ('618005560a07a','UPSA-C','Vitamin',35000,'Treatment of Vitamin C deficiency.')";
 
-$belongto = "INSERT INTO `belongto` (`pharmacyid`, `productid`)
-VALUES ('a43ed8d9c1874','618005651c83c'),
-('a43ed8d9c1874','6180055d946f8'),
-('a43ed8d9c1874','618004c088173'),
-('a43ed8d9c1874','618004cebd99c'),
-('a43ed8d9c1874','618004da4d32f'),
-('a43ed8d9c1874','618004e461875'),
-('a43ed8d9c1874','618004ed4ff08'),
-('a43ed8d9c1874','618004fa732dc'),
-('a43ed8d9c1874','618005075b2eb'),
-('a43ed8d9c1874','618005107f729'),
-('a43ed8d9c1874','6180051cabbbf'),
-('a43ed8d9c1874','6180052502a07'),
-('a43ed8d9c1874','6180052b862ce'),
-('a43ed8d9c1874','618005341c95c'),
-('21e1a6590ec74','618005393c8e1'),
-('21e1a6590ec74','6180053e89973'),
-('21e1a6590ec74','61800543b470b'),
-('21e1a6590ec74','6180054a474a9'),
-('21e1a6590ec74','618005503a84e'),
-('21e1a6590ec74','618005560a07a'),
-('21e1a6590ec74','618005651c83c'),
-('21e1a6590ec74','6180055d946f8'),
-('21e1a6590ec74','618004c088173'),
-('21e1a6590ec74','618004cebd99c'),
-('21e1a6590ec74','618004da4d32f'),
-('21e1a6590ec74','618004e461875'),
-('21e1a6590ec74','618004ed4ff08'),
-('21e1a6590ec74','618004fa732dc'),
-('21e1a6590ec74','6180052b862ce')";
-
-$transactions = "INSERT INTO `transactions` (`tid`, `userid`, `pid`, `quantity`, `overallprice`, `boughtdate`)
-VALUES ('618006b64fc06','fda786c58c3c4','618005651c83c',2,400000,'2021-11-1 22:30:13')";
+$belongto = "INSERT INTO `belongto` (`pharmacyid`, `productid`. `quantity`)
+VALUES ('a43ed8d9c1874','618005651c83c', 20),
+('a43ed8d9c1874','6180055d946f8', 10),
+('a43ed8d9c1874','618004c088173', 6),
+('a43ed8d9c1874','618004cebd99c', 7),
+('a43ed8d9c1874','618004da4d32f', 8),
+('a43ed8d9c1874','618004e461875', 3),
+('a43ed8d9c1874','618004ed4ff08', 13),
+('a43ed8d9c1874','618004fa732dc', 22),
+('a43ed8d9c1874','618005075b2eb', 11),
+('a43ed8d9c1874','618005107f729', 15),
+('a43ed8d9c1874','6180051cabbbf', 4),
+('a43ed8d9c1874','6180052502a07', 1),
+('a43ed8d9c1874','6180052b862ce', 20),
+('a43ed8d9c1874','618005341c95c', 7),
+('21e1a6590ec74','618005393c8e1', 8),
+('21e1a6590ec74','6180053e89973', 19),
+('21e1a6590ec74','61800543b470b', 12),
+('21e1a6590ec74','6180054a474a9', 15),
+('21e1a6590ec74','618005503a84e', 14),
+('21e1a6590ec74','618005560a07a', 19),
+('21e1a6590ec74','618005651c83c', 16),
+('21e1a6590ec74','6180055d946f8', 8),
+('21e1a6590ec74','618004c088173', 11),
+('21e1a6590ec74','618004cebd99c', 12),
+('21e1a6590ec74','618004da4d32f', 19),
+('21e1a6590ec74','618004e461875', 21),
+('21e1a6590ec74','618004ed4ff08', 22),
+('21e1a6590ec74','618004fa732dc', 17),
+('21e1a6590ec74','6180052b862ce', 18)";
 
 if ($connection->multi_query($users) === TRUE) {
     echo "successfully ";
@@ -91,11 +89,6 @@ if ($connection->multi_query($products) === TRUE) {
     echo "Error: "  . $connection->error;
 }
 if ($connection->multi_query($belongto) === TRUE) {
-    echo "successfully ";
-} else {
-    echo "Error: " . $connection->error;
-}
-if ($connection->multi_query($transactions) === TRUE) {
     echo "successfully ";
 } else {
     echo "Error: " . $connection->error;

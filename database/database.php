@@ -16,7 +16,6 @@ if($conn->query($db) === TRUE){
 
 $connection = new mysqli($servername, $username, $password, $dbname);
 
-
 if($connection->connect_error){
     die("Connection failed: " . $connection->connect_error);
 }
@@ -53,9 +52,20 @@ $producttable = "CREATE TABLE IF NOT EXISTS `products`(
     PRIMARY KEY (`pid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 
+$incart = "CREATE TABLE IF NOT EXISTS `incart`(
+    `date` datetime NOT NULL,
+    `quantity` INT NOT NULL,
+    `userid` VARCHAR(40) NOT NULL UNIQUE,
+    `productid` VARCHAR(40) NOT NULL UNIQUE,
+    FOREIGN KEY (`productid`) REFERENCES `products` (`pid`),
+    FOREIGN KEY (`userid`) REFERENCES `users`(`uid`),
+    PRIMARY KEY (`userid`, `productid`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;";
+
 $belongto = "CREATE TABLE IF NOT EXISTS `belongto`(
     `pharmacyid` VARCHAR(40) NOT NULL,
     `productid` VARCHAR(40) NOT NULL,
+    `quantity` INT NOT NULL,
     FOREIGN KEY (`productid`) REFERENCES `products` (`pid`),
     FOREIGN KEY (`pharmacyid`) REFERENCES `pharmacy` (`phid`),
     PRIMARY KEY (`productid`, `pharmacyid`)
@@ -73,6 +83,7 @@ $pharmacytable = "CREATE TABLE IF NOT EXISTS `pharmacy`(
 $uchecker = $connection->query($usertable);
 $phchecker = $connection->query($pharmacytable);
 $pchecker = $connection->query($producttable);
+$incartchecker = $connection->query($incart);
 $tchecker = $connection->query($transactiontable);
 $belong = $connection->query($belongto);
 
@@ -86,9 +97,12 @@ if($uchecker != TRUE) {
     echo "ERROR: ". $connection->error;
 } else if ($belong !== TRUE){
     echo "ERROR: ". $connection->error;
-} else {
+} else if ($incartchecker !== TRUE){
+    echo "ERROR: ". $connection->error;
+} else  {
     echo "tables created!";
 }
 
 $connection->close();
+
 ?>
