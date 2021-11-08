@@ -41,7 +41,7 @@ VALUES ('618005651c83c','Acenocoumarol','Cardiovascular and Blood Pressure',2000
 ('618005503a84e','HolistiCare-Ester','Vitamin',82000,'Provides the body need for Vitamin C, enhances resistance.'),
 ('618005560a07a','UPSA-C','Vitamin',35000,'Treatment of Vitamin C deficiency.')";
 
-$belongto = "INSERT INTO `belongto` (`pharmacyid`, `productid`. `quantity`)
+$belongto = "INSERT INTO `belongto` (`pharmacyid`, `productid`, `quantity`)
 VALUES ('a43ed8d9c1874','618005651c83c', 20),
 ('a43ed8d9c1874','6180055d946f8', 10),
 ('a43ed8d9c1874','618004c088173', 6),
