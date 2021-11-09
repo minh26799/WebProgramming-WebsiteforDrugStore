@@ -1,4 +1,6 @@
-
+<?php
+    include '../controllers/product.controller.php';
+?>
 <!doctype html>
 <html lang="en" class="h-100">
 
@@ -27,167 +29,49 @@
             top: 150px;
             z-index: -1;
         }
+        img.product-image{
+            height: 120px;
+            width: auto;
+        }
+        .col-xs-6.col-sm-4.col-md-3.col-lg-2{
+            padding: 0px 10px;
+        }
+        .thumbnail{
+            min-width: 208px;
+        }
     </style>
 </head>
 
 <body>
     <header>
-        <?php include "header.php" ?>
+        <?php include "header.php";?>
     </header>
 
     <main role="main" class="flex-shrink-0">
     <div class="container-fluid">
         <div class="row">
+            <?php
+            while($row = $listProduct->fetch_assoc()){
+                $imageURL = '../assets/images/' . $row['productname'] . '.jpeg';
+            ?> 
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+    
                 <div class="thumbnail">
-                    <img src="...">
+                    <img class="product-image" src="<?php echo $imageURL;?>">
+                    <a href="#">
                     <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                        <h4><?php echo $row['productname'];?></h4>
+                        <p><?php echo number_format($row['price'],0) . "đ";?></p>
+                        <p>
+                            <a href="#" class="btn btn-default" role="button">Add to cart</a>
+                            <a href="#" class="btn btn-primary" role="button">Buy now</a>
+                        </p>
                     </div>
+                    </a>
                 </div>
             </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
-                <div class="thumbnail">
-                    <img src="...">
-                    <div class="caption">
-                    <h4>Thumbnail label</h4>
-                    <p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                    </div>
-                </div>
-            </div>
+            <?php
+            }   ?>
         </div>
     </div>
     <footer>
