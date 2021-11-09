@@ -1,5 +1,5 @@
 <?php
-    include '../controllers/product.controller.php';
+    include '../controllers/listProduct.controller.php';
 ?>
 <!doctype html>
 <html lang="en" class="h-100">
@@ -58,7 +58,8 @@
     
                 <div class="thumbnail">
                     <img class="product-image" src="<?php echo $imageURL;?>">
-                    <a href="#">
+                    
+                    <a href="./product_detail?id=<?php echo $row['pid']?>">
                     <div class="caption">
                         <h4><?php echo $row['productname'];?></h4>
                         <p><?php echo number_format($row['price'],0) . "đ";?></p>

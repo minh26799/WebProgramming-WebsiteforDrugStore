@@ -1,3 +1,6 @@
+<?php
+    include '../controllers/productDetail.controller.php';
+?>
 
 <!doctype html>
 <html lang="en" class="h-100">
@@ -48,6 +51,12 @@
                 <div class="col-lg-5 col-md-5 col-sm-6">
                     <div class="white-box text-center"><img src="https://via.placeholder.com/430x600/00CED1/000000" class="img-responsive"></div>
                 </div>
+                <?php 
+                
+                $productdetail = new ProductDetailController();
+                $detail = $productdetail->getDetail($_GET['id'])->fetch_assoc();
+                echo $detail['price'];
+                ?> 
                 <div class="col-lg-7 col-md-7 col-sm-6">
                     <h1>Than Long An</h1>
                     <h2 class="mt-5">

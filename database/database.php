@@ -55,10 +55,12 @@ $producttable = "CREATE TABLE IF NOT EXISTS `products`(
 $incart = "CREATE TABLE IF NOT EXISTS `incart`(
     `date` datetime NOT NULL,
     `quantity` INT NOT NULL,
-    `userid` VARCHAR(40) NOT NULL UNIQUE,
-    `productid` VARCHAR(40) NOT NULL UNIQUE,
+    `userid` VARCHAR(40) NOT NULL,
+    `productid` VARCHAR(40) NOT NULL,
+    `pharmacyid` VARCHAR(40),
     FOREIGN KEY (`productid`) REFERENCES `products` (`pid`),
     FOREIGN KEY (`userid`) REFERENCES `users`(`uid`),
+    FOREIGN KEY (`pharmacyid`) REFERENCES `pharmacy`(`phid`),
     PRIMARY KEY (`userid`, `productid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 

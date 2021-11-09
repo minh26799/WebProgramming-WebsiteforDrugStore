@@ -39,10 +39,10 @@
     </head>
     <body>
         <div class="container">
-            <nav class="navbar navbar-defalut upper">
+            <nav class="navbar navbar-default upper">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img class="logo" alt="Brand" src="./assets/icons/HCMUT_logo.png">
+                        <img class="logo" alt="Brand" src="../assets/images/HCMUT_logo.png">
                     </a>
                     <form class="navbar-form">
                         <div class="form-group">
