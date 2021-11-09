@@ -21,7 +21,7 @@
 	// }
 	require_once('router.php');
 	include_once('controllers/login.controller.php');
-
+	include_once('controllers/productDetail.controller.php');
 
 	$router = new Router();
 	
@@ -43,8 +43,8 @@
 	});
 
 	$router->addRoute('/product_detail', function($url){
-		$question = new QuestionController();
-		print_r($question->view('edit', $_GET['id']));
+		$productdetail = new ProductDetailController();
+		print_r($productdetail->view($_GET['id']));
 	});
 
 	$router->run();
