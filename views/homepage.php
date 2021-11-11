@@ -46,7 +46,6 @@
     <header>
         <?php include "header.php";?>
     </header>
-
     <main role="main" class="flex-shrink-0">
     <div class="container-fluid">
         <div class="row">

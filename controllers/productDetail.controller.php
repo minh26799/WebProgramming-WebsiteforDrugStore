@@ -19,7 +19,7 @@ class ProductDetailController {
             // ); 
             // $stream = stream_context_create($options);
             echo $data;
-            $result = file_get_contents('http://' . $_SERVER['SERVER_NAME'] . ':8080/WebProgramming-WebsiteforDrugStore/views/product_detail.php?'.$data, false);
+            $result = file_get_contents('http://' . $_SERVER['SERVER_NAME'] . '/WebProgramming-WebsiteforDrugStore/views/product_detail.php?'.$data, false);
             session_start();
             return $result;
     }
