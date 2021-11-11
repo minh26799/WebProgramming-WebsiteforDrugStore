@@ -1,37 +1,20 @@
 <?php
-	// if (!empty($_SERVER['HTTPS']) && ('on' == $_SERVER['HTTPS'])) {
-	// 	$uri = 'https://';
-	// } else {
-	// 	$uri = 'http://';
-	// } 
-	// $uri .= $_SERVER['HTTP_HOST'];
-	// if(isset($_REQUEST['page'])){
-	// 	if ($_REQUEST['page'] == 'home' || $_REQUEST['page']==''){
-	// 		require 'F:\xampp_\htdocs\drug-store\home.php';
-	// 	}
-	// 	if ($_REQUEST['page'] == 'product'){
-	// 		require 'F:\xampp_\htdocs\drug-store\product.php';
-	// 	}
-	// 	if ($_REQUEST['page'] == 'register'){
-	// 		require 'F:\xampp_\htdocs\drug-store\register.php';
-	// 	}
-	// 	if ($_REQUEST['page'] == 'login'){
-	// 		require 'F:\xampp_\htdocs\drug-store\login.php';
-	// 	}
-	// }
+session_start();
 	require_once('router.php');
 	include_once('controllers/login.controller.php');
 	include_once('controllers/productDetail.controller.php');
+	include_once('controllers/home.controller.php');
 
 	$router = new Router();
 	
-	$router->addRoute('/$', function($url){
-		$login = new LoginController();
-		print_r($login->view());
+	$router->addRoute('/home', function($url){
+		$home = new HomeController();
+		print_r($home->view());
 	});
 
 	$router->addRoute('/login', function($url){
-		echo "LOGIN";
+		$login = new LoginController();
+		print_r($login->view());
 	});
 
 	$router->addRoute('/register', function($url){
