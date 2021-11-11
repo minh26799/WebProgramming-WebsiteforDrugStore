@@ -43,6 +43,7 @@
                 <ion-icon name="logo-google" size="small"></ion-icon>
             </button>
         </div>
+        
     </form>
 
     <script language="JavaScript" type="text/javascript">
