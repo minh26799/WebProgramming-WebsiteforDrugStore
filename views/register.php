@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/themify-icons/themify-icons.css">
-    <link rel="stylesheet" href="./assets/css/registerBoxStyle.css">
-    <script language="JavaScript" type="text/javascript" src="validator.js"></script>
+    <link rel="stylesheet" href="../assets/css/themify-icons/themify-icons.css">
+    <link rel="stylesheet" href="../assets/css/registerBoxStyle.css">
+    <script language="JavaScript" type="text/javascript" src="../views/validator.js"></script>
     <title>Register</title>
 </head>
 
 <body>
-    <form class="form" id="form-1" action="register_processing.php" method="post">
+    <form class="form" id="form-1" action="../controllers/register_processing.php" method="post">
         <h1 class="register-content">Register</h1>
         <span class="form-message" id="response" href="javascript: reload()"></span>
         <div class="account-info">
@@ -43,7 +43,7 @@
         </div>
         <!-- <button id="sign-up-button" type="submit" form="form-1" value="Submit">Register</button> -->
         <input id="sign-up-button" type="submit" name="signup_submit" value="Sign me up" />
-        <input id="back-to-login" onclick="location.href='./index.php';" value="Back to Login"></button>
+        <input id="back-to-login" onclick="location.href='./login';" value="Back to Login"></button>
     </form>
     <script language="JavaScript" type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
