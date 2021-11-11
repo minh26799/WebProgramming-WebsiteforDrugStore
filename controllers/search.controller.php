@@ -1,17 +1,12 @@
 <?php
-/* Attempt MySQL server connection. Assuming you are running MySQL
-server with default setting (user 'root' with no password) */
+
 $connection = mysqli_connect("localhost", "root", "", "webDB");
  
-// Check connection
 if($connection === false){
     die("ERROR: Could not connect. " . mysqli_connect_error());
 }
  
 if(isset($_REQUEST["term"])){
-    // Prepare a select statement
-  
-
     if($connection->connect_error){
         die("Connection failed: " . $connection->connect_error);
     }
@@ -22,9 +17,8 @@ if(isset($_REQUEST["term"])){
     }
     $result = mysqli_query($connection, $sql);
     $flag = 0;
-            // Check number of rows in the result set
+  
             if(mysqli_num_rows($result) > 0){
-                // Fetch result rows as an associative array
                 while($row = mysqli_fetch_array($result, MYSQLI_ASSOC)){
                     if($flag === 5){
                         break;
@@ -50,6 +44,5 @@ if(isset($_REQUEST["term"])){
 
 }
  
-// close connection
 mysqli_close($connection);
 ?>

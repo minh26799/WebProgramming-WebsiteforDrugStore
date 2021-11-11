@@ -28,6 +28,7 @@ $usertable = "CREATE TABLE IF NOT EXISTS `users` (
     `firstname` VARCHAR(50),
     `lastname` VARCHAR(50),
     `phone` VARCHAR(15),
+    `role` VARCHAR(20),
     PRIMARY KEY (`uid`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 

@@ -1,77 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <style>
-            .container{
-                width: 100%;
-                background-color: #ffffff;
-            }
-            .container-fluid{
-                display: flex;
-                width: 100%;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .navbar-brand{
-                padding: 0px;
-            }
-            .logo {
-                height: 100%
-            }
-            
-            .navbar-form.navbar-left{
-                display: flex;
-                justify-content: center;
-                width: 50%;
-            }
-            .navbar.lower{
-                background-color: #1b74e7;
-            }
-            
-            .navbar.lower ul.nav a {
-                color:  #ffffff;
-            }
-            .navbar.lower ul.nav a:hover{
-                background-color:  #ffffff;
-                color:  #000000;
-            }
-            .search-box{
+    <style>
+        .container{
+            width: 100%;
+            background-color: #ffffff;
+        }
+        .container-fluid{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .navbar-brand{
+            padding: 0px;
+        }
+        .logo {
+            height: 100%
+        }
+        
+        .navbar-form.navbar-left{
+            display: flex;
+            justify-content: center;
+            width: 50%;
+        }
+        .navbar.lower{
+            background-color: #1b74e7;
+        }
+        
+        .navbar.lower ul.nav a {
+            color:  #ffffff;
+        }
+        .navbar.lower ul.nav a:hover{
+            background-color:  #ffffff;
+            color:  #000000;
+        }
+        .search-box{
         width: 500px;
         position: relative;
         display: inline-block;
         font-size: 14px;
-    }
-    .search-box input[type="text"]{
-        height: 32px;
-        padding: 5px 10px;
-        border: 1px solid #CCCCCC;
-        font-size: 14px;
-    }
-    .result{
-        position: absolute;        
-        z-index: 999;
-        top: 100%;
-        left: 0;
-        background: #ffffff;
-    }
-    .search-box input[type="text"], .result{
-        width: 100%;
-        box-sizing: border-box;
-    }
-    /* Formatting result items */
-    .result form{
-        margin: 0;
-        padding: 7px 10px;
-        border: 1px solid #CCCCCC;
-        border-top: none;
-        cursor: pointer;
-    }
-    .result form:hover{
-        background: #f2f2f2;
-    }
-    .result div div{
-        padding: 2px 2px 2px 2px ;
-    }
+        }
+        .search-box input[type="text"]{
+            height: 32px;
+            padding: 5px 10px;
+            border: 1px solid #CCCCCC;
+            font-size: 14px;
+        }
+        .result{
+            position: absolute;        
+            z-index: 999;
+            top: 100%;
+            left: 0;
+            background: #ffffff;
+        }
+        .search-box input[type="text"], .result{
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .result form{
+            margin: 0;
+            padding: 7px 10px;
+            border: 1px solid #CCCCCC;
+            border-top: none;
+            cursor: pointer;
+        }
+        .result form:hover{
+            background: #f2f2f2;
+        }
+        .result div div{
+            padding: 2px 2px 2px 2px ;
+        }
         </style>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
