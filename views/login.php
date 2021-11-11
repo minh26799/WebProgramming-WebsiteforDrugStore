@@ -8,9 +8,10 @@
     <link rel="stylesheet" href="../assets/css/loginBoxStyle.css">
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    <script src="validator.js"></script>
+    <script src="../views/validator.js"></script>
     <title>Login Page</title>
 </head>
+
 <body>
     <form class="form" id="login" action="../controllers/login_processing.php" method="post">
         <h1 id="title">Login</h1>
@@ -29,8 +30,8 @@
         <div id="forgotPassword">
             Forgot password?
         </div>
-        <input type="submit" name="login_submit" value="Login" id="login-btn"/>
-        <div id="notMember">Not a member? <a href="./register.php" id="signup-link">Sign up</a></div>
+        <input type="submit" name="login_submit" value="Login" id="login-btn" />
+        <div id="notMember">Not a member? <a href="./register" id="signup-link">Sign up</a></div>
         <div class="bottom-icon">
             <button class="social-signin facebook" type="button">
                 <ion-icon name="logo-facebook" size="small"></ion-icon>
@@ -43,7 +44,8 @@
             </button>
         </div>
     </form>
-<script language="JavaScript" type="text/javascript">
+
+    <script language="JavaScript" type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
             // Mong muốn của chúng ta
             Validator({
@@ -70,4 +72,5 @@
         }
     </script>
 </body>
+
 </html>
