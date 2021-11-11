@@ -11,9 +11,12 @@ if($connection->connect_error){
     die("Connection failed: " . $connection->connect_error);
 }
 
-$users = "INSERT INTO `users` (`uid`, `username`, `password`, `firstname`, `lastname`, `phone`)
-VALUES ('fda786c58c3c4', 'user1@gmail.com', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 'Hoang', 'Tran', '0909999999'), #Admin123
-('d2a095d4abd64','testuser@gmail.com','3e31b725acb8bfca0e49ccbddb25d3e7','Hung','Lam','0123456789')"; #User123456
+$users = "INSERT INTO `users` (`uid`, `username`, `password`, `firstname`, `lastname`, `phone`, `role`)
+VALUES ('fda786c58c3c4', 'user1@gmail.com', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 'Hoang', 'Tran', '0909999999', 'user'), #Admin123
+('d2a095d4abd64','testuser@gmail.com','3e31b725acb8bfca0e49ccbddb25d3e7','Hung','Lam','0123456789', 'user'),
+('674611d4746c3','minh123@gmail.com','e64b78fc3bc91bcbc7dc232ba8ec59e0','Minh','Nguyen','0111111222', 'user'),
+('0c167e25767e4','admin123@gmail.com','e64b78fc3bc91bcbc7dc232ba8ec59e0','Dang','Le','0989686868', 'admin'),
+('aee2576d29174','admin456@gmail.com','e64b78fc3bc91bcbc7dc232ba8ec59e0','An','Le','0121686868', 'admin')"; #User123456
 
 $phars = "INSERT INTO `pharmacy`(`phid`, `name`, `latitude`, `longitude`)
 VALUES ('a43ed8d9c1874','DR. H', 10.77376426982302, 106.66056565582056),
