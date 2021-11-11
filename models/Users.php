@@ -56,7 +56,7 @@ class Users
             //! Must be changed to the correct path
             // url to redirect to login page and print the error message 
             // echo "HERE";
-            $url = "../index.php?error=Incorrect Username or Password";
+            $url = "../index.php/login?error=Incorrect Username or Password";
             header("Location: $url");
             
             exit();
@@ -77,7 +77,7 @@ class Users
         if (mysqli_num_rows($result) > 0) // The username already exists
         {
             //! Must be changed to the correct path
-            $url = "./register.php?error=Username already exists";
+            $url = "../index.php/register?error=Username already exists";
             header("Location: $url");
             exit();
             return false;
@@ -88,14 +88,14 @@ class Users
             if ($result2) //Successfully added the user
             {
                 //! Must be changed to the correct path
-                $url = "./register.php?success=Registration Successful";
+                $url = "../index.php/register?success=Registration Successful";
                 header("Location: $url");
                 exit();
                 return true;
             } else // Failed added a user
             {
                 //! Must be changed to the correct path
-                $url = "./register.php?error=Registration Failed";
+                $url = ".../index.php/register?error=Registration Failed";
                 header("Location: $url");
                 exit();
                 return false;
