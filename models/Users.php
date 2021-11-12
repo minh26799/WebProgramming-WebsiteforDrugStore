@@ -83,7 +83,7 @@ class Users
             return false;
         } else {
             $sql2 = "INSERT INTO users 
-            VALUES ('$this->uuid','$this->Username', '$this->encodedPassword', '$this->FirstName' ,'$this->LastName', '$this->Phone', NULL)";
+            VALUES ('$this->uuid','$this->Username', '$this->encodedPassword', '$this->FirstName' ,'$this->LastName', '$this->Phone', 'user')";
             $result2 = mysqli_query($this->connection, $sql2);
             if ($result2) //Successfully added the user
             {
