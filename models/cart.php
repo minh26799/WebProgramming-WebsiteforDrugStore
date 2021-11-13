@@ -19,7 +19,7 @@ class Cart{
         
         if (mysqli_num_rows($result) == 0) {
             echo '<script type="text/javascript">
-                alert("Can\'t get list!");
+                alert("Can\'t get list1!");
             </script>';
             return;
         } else {

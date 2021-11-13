@@ -1,19 +1,19 @@
+
 <?php
+    session_start();
     include '../controllers/productDetail.controller.php';
 ?>
-
 <!doctype html>
 <html lang="en" class="h-100">
-
 <head>
 
     <title>DrugStore</title>
 
     <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
         body{
             display:flex;
@@ -30,16 +30,20 @@
             top: 150px;
             z-index: -1;
         }
-        .input-group{
+        .input-group.number-spinner{
+            width: 20%;
+        }
+        .col-lg-7.col-md-7.col-sm-6{
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
+            gap: 10px;
         }
     </style>
 </head>
 
 <body>
     <header>
-        <?php include "header.php" ?>
+        <?php include "header.php";?>
     </header>
 
     <main role="main" class="flex-shrink-0">
@@ -48,48 +52,63 @@
     <div class="card">
         <div class="card-body">
             <div class="row">
-                <div class="col-lg-5 col-md-5 col-sm-6">
-                    <div class="white-box text-center"><img src="https://via.placeholder.com/430x600/00CED1/000000" class="img-responsive"></div>
-                </div>
                 <?php 
-                
-                $productdetail = new ProductDetailController();
-                $detail = $productdetail->getDetail($_GET['id'])->fetch_assoc();
-                echo $detail['price'];
+                    $productdetail = new ProductDetailController();
+                    $detail = $productdetail->getDetail($_GET['id'])->fetch_assoc();
+                    $imageURL = '../assets/images/' . $detail['productname'] . '.jpeg';
                 ?> 
+                <div class="col-lg-5 col-md-5 col-sm-6">
+                    <div class="white-box text-center"><img src="<?php echo $imageURL;?>" class="img-responsive"></div>
+                </div>
                 <div class="col-lg-7 col-md-7 col-sm-6">
-                    <h1>Than Long An</h1>
+                    <h1><?php echo $detail['productname']?></h1>
                     <h2 class="mt-5">
-                        $0
+                        <?php echo number_format($detail['price'],0) . "đ";?>
                     </h2>
                     <h4 class="box-title mt-5">Product description</h4>
-                    <p>Lorem Ipsum available,but the majority have suffered alteration in some form,by injected humour,or randomised words which don't look even slightly believable.but the majority have suffered alteration in some form,by injected humour</p>
+                    <p><?php echo $detail['description']?></p>
                     
-                    <div class="input-group">
+                    <div class="input-group number-spinner">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">+</button>
+                            <button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
                         </span>
-                        <input type="text" class="form-control" placeholder="Search for...">
+                        <input type="text" class="form-control text-center" value="1">
                         <span class="input-group-btn">
-                            <button class="btn btn-default" type="button">+</button>
+                            <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
                         </span>
                     </div>
+                    <div>
+                    <button class="btn btn-default btn-rounded">Add to cart</button>
                     <button class="btn btn-primary btn-rounded">Buy Now</button>
-                    <button class="btn btn-primary btn-rounded">Buy Now</button>
-                    <h3 class="box-title mt-5">Key Highlights</h3>
-                    <ul class="list-unstyled">
-                        <li><i class="fa fa-check text-success"></i>Than trong mọi hoàn cảnh</li>
-                        <li><i class="fa fa-check text-success"></i>Than bất kể thời tiết</li>
-                    </ul>
+                    </div>
+                    
                 </div>
-                
             </div>
         </div>
     </div>
-</div>
+    </div>
     </div>
     <footer>
         <?php include "footer.php" ?>
     </footer>
     </main>
+</body>
+    <script>
+        $(document).on('click', '.number-spinner button', function () {    
+            var btn = $(this),
+                oldValue = btn.closest('.number-spinner').find('input').val().trim(),
+                newVal = 0;
+            
+            if (btn.attr('data-dir') == 'up') {
+                newVal = parseInt(oldValue) + 1;
+            } else {
+                if (oldValue > 1) {
+                    newVal = parseInt(oldValue) - 1;
+                } else {
+                    newVal = 1;
+                }
+            }
+            btn.closest('.number-spinner').find('input').val(newVal);
+        });
+    </script>
 </html>

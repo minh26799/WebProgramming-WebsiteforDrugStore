@@ -1,4 +1,5 @@
 <?php
+session_start();
 // API for emptying your cart
 if (isset($_GET['empty'])) {
 	unset($_SESSION['transaction']);

@@ -4,14 +4,25 @@ class CartController {
         
         public function view($userID) {
             
-            $opts = array('http' => array('header' => 'Cookie: ' . $_SERVER['HTTP_COOKIE'] . "\r\n"));
-            $context = stream_context_create($opts);
-            session_write_close(); // unlock the file
+            
+            // $opts = array('http' => array('header' => 'Cookie: ' . $_SERVER['HTTP_COOKIE'] . "\r\n"));
+            // $context = stream_context_create($opts);
+            // session_write_close(); // unlock the file
 
             $data = http_build_query(array('userid' => $userID));
+            $options = array( 
+                'http' => array(
+                    'header' => "Content-Type: application/x-www-form-urlencoded\r\n".
+                    "Content-Length: ".strlen($data)."\r\n".
+                    "User-Agent: MyAgent/1.0\r\n" . 
+                    "Cookie: " . $_SERVER['HTTP_COOKIE']."\r\n", 
+                'method' => 'GET', 
+                'content' => $data) 
+            ); 
+            $stream = stream_context_create($options);
+            session_write_close();
 
-            $result = file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/WebProgramming-WebsiteforDrugStore/views/cart.php?'.$data, false, $context);
-            session_start();
+            $result = file_get_contents('http://'.$_SERVER['SERVER_NAME'].'/WebProgramming-WebsiteforDrugStore/views/cart.php?'.$data, false, $stream);
             return $result;
         }
 
