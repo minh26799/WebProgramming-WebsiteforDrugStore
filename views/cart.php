@@ -53,12 +53,18 @@ $total = 0;
 			position: absolute;
 			top: 150px;
 			z-index: -1;
+			width: 100%;
 		}
 
 		.input-group {
 			display: flex;
 			flex-direction: row;
 		}
+
+		img.product-image {
+            height: 80px;
+            width: auto;
+        }
 	</style>
 </head>
 
@@ -67,12 +73,12 @@ $total = 0;
 		<?php include "header.php" ?>
 	</header>
 
-	<main role="main" class="flex-shrink-0">
+	<main role="main">
 		<div class="container-fluid">
 
-			<div class="table">
+			<div class="cart-table" style="width: 100%;">
 
-				<table style="border-bottom: 1px #e3e3e3 solid; margin-bottom:20px;">
+				<table class="table" style="border-bottom: 1px #e3e3e3 solid; margin-bottom:20px;">
 
 
 					<!-- Transactions in cart are fetched from user's session -->
@@ -84,35 +90,49 @@ $total = 0;
 
 						if ($cartItems && mysqli_num_rows($cartItems) > 0) { ?>
 
-							<tr>
-								<th>Name</th>
-								<th>Quantity</th>
-								<th>Price</th>
-							</tr>
+							<table class="table table-hover">
+								<thead>
+									<tr>
+										<th scope="col">Product</th>
+										<th scope="col">Name</th>
+										<th scope="col">Quantity</th>
+										<th scope="col">Price</th>
+										<th scope="col"></th>
+									</tr>
+								</thead>
+								<tbody>
 
-							<?php while ($item = $cartItems->fetch_assoc()) { ?>
-
-								<tr>
-									<td><?php echo $item['productname']; ?></td>
-									<td><?php echo $item['quantity']; ?></td>
-									<td>
-										<?php echo $item['price'];
-										$pro = $item['price'] * $item['quantity'];
-										$total = $total + $pro; 
+									<?php while ($item = $cartItems->fetch_assoc()) { 
+										$imageURL = '../assets/images/' . $item['productname'] . '.jpeg';
 										?>
-									</td>
-								</tr>
 
-							<?php }
-						} else { ?>
-							<a class='empty' href="checkout.php?empty=1">EmptyCart</a>
-					<?php }
+										<tr>
+											<td><img class="product-image" src="<?php echo $imageURL; ?>"></td>
+											<td><?php echo $item['productname']; ?></td>
+											<td><?php echo $item['quantity']; ?></td>
+											<td>
+												<?php echo $item['price'];
+												$pro = $item['price'] * $item['quantity'];
+												$total = $total + $pro;
+												?>
+											</td>
+											<td><a class="btn btn-danger" href="#" role="button">Remove</a></td>
+										</tr>
+
+									<?php } ?>
+
+								</tbody>
+
+							<?php } else { ?>
+								<a class='empty' href="#">EmptyCart</a>
+						<?php }
 					} ?>
-				</table>
 
-				<div class="total" style="float: right;">
-					<h2>Total Rs: <span><?php echo $total; ?></span></h2>
-				</div>
+							</table>
+
+							<div class="total" style="float: right;">
+								<h2>Total: <span><?php echo $total; ?></span></h2>
+							</div>
 			</div>
 
 			<!-- <form action="cart.php" method="POST">
