@@ -12,21 +12,39 @@ class Cart{
     public function listCart($userID){
         $this->connect();
 
-        $sql_cmd = "SELECT p.productname, p.price, quantity FROM `incart` 
+        $sql_cmd = "SELECT p.pid ,p.productname, p.price, quantity FROM `incart` 
         JOIN products p ON incart.productid = p.pid
         WHERE `userid` = '$userID'";
 
         $result = mysqli_query($this->connection, $sql_cmd);
         
         if (mysqli_num_rows($result) == 0) {
-            echo '<script type="text/javascript">
-                alert("Can\'t get list1!");
-            </script>';
+            // echo '<script type="text/javascript">
+            //     alert("Can\'t get list1!");
+            // </script>';
             return;
         } else {
             $this->connection->close();
             return $result;
         }
+    }
+
+    public function removeFromCart($userID, $pID){
+        $this->connect();
+
+        $remove = "DELETE FROM `incart` WHERE `productid` = '$pID' AND `userid` = '$userID'";
+        mysqli_query($this->connection, $remove);
+
+        return true;
+    }
+
+    public function emptyCart($userID){
+        $this->connect();
+
+        $remove = "DELETE FROM `incart` WHERE `userid` = '$userID'";
+        mysqli_query($this->connection, $remove);
+
+        return true;
     }
 
     public function addToCart($userID, $pID, $quantity, $date) {

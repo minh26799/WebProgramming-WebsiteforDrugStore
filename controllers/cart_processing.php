@@ -26,4 +26,18 @@ if ($_POST['action'] == "Buy Now") {
     unset($_SESSION['redirect_url']);
 
     header("Location:" . $redirect_url);
+} elseif ($_POST['action'] == "Remove") {
+    $cart = new Cart();
+    $cart->removeFromCart($_POST['userID'], $_POST['productID']);
+
+    $user = $_POST['userID'];
+    $url = "../index.php/cart?userid=$user";
+    header("Location:" . $url);
+} elseif ($_POST['action'] == "Empty Cart") {
+    $cart = new Cart();
+    $cart->emptyCart($_POST['userID']);
+
+    $user = $_POST['userID'];
+    $url = "../index.php/cart?userid=$user";
+    header("Location:" . $url);
 }

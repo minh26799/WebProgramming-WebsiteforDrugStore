@@ -1,21 +1,5 @@
 <?php
 session_start();
-// API for emptying your cart
-if (isset($_GET['empty'])) {
-	unset($_SESSION['transaction']);
-}
-
-// API for removing a transaction in cart
-if (isset($_GET['remove'])) {
-	$id = $_GET['remove'];
-	foreach ($_SESSION['transaction'] as $k => $part) {
-		if ($id == $part['productid']) {
-			unset($_SESSION['transaction'][$k]);
-		}
-	}
-}
-
-
 ?>
 
 <?php
@@ -63,9 +47,9 @@ $total = 0;
 		}
 
 		img.product-image {
-            height: 80px;
-            width: auto;
-        }
+			height: 80px;
+			width: auto;
+		}
 	</style>
 </head>
 
@@ -91,6 +75,11 @@ $total = 0;
 
 						if ($cartItems && mysqli_num_rows($cartItems) > 0) { ?>
 
+							<form action="../controllers/cart_processing.php" method="POST">
+								<input type="hidden" name="userID" value="<?php echo $_GET['userid'] ?>" />
+								<input type="submit" name="action" value="Empty Cart" class="btn btn-success" />
+							</form>
+
 							<table class="table table-hover">
 								<thead>
 									<tr>
@@ -103,9 +92,9 @@ $total = 0;
 								</thead>
 								<tbody>
 
-									<?php while ($item = $cartItems->fetch_assoc()) { 
+									<?php while ($item = $cartItems->fetch_assoc()) {
 										$imageURL = '../assets/images/' . $item['productname'] . '.jpeg';
-										?>
+									?>
 
 										<tr>
 											<td><img class="product-image" src="<?php echo $imageURL; ?>"></td>
@@ -117,7 +106,13 @@ $total = 0;
 												$total = $total + $pro;
 												?>
 											</td>
-											<td><a class="btn btn-danger" href="#" role="button">Remove</a></td>
+											<td>
+												<form action="../controllers/cart_processing.php" method="POST">
+													<input type="hidden" name="userID" value="<?php echo $_GET['userid'] ?>" />
+													<input type="hidden" name="productID" value="<?php echo $item['pid'] ?>" />
+													<input type="submit" name="action" value="Remove" class="btn btn-danger" />
+												</form>
+											</td>
 										</tr>
 
 									<?php } ?>
@@ -125,13 +120,15 @@ $total = 0;
 								</tbody>
 
 							<?php } else { ?>
-								<a class='empty' href="#">EmptyCart</a>
+								<div style="text-align: center; padding: 50px;">
+									<a class='btn btn-primary' style="font-size: 3rem;" href="./home">Your Cart is empty. Go buy some drugs!</a>
+								</div>
 						<?php }
 					} ?>
 
 							</table>
 
-							<div class="total" style="float: right;">
+							<div class="total" style="text-align: center;">
 								<h2>Total: <span><?php echo $total; ?></span></h2>
 							</div>
 			</div>
