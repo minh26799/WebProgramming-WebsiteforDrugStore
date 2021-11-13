@@ -5,6 +5,7 @@ session_start();
 	include_once('controllers/register.controller.php');
 	include_once('controllers/productDetail.controller.php');
 	include_once('controllers/home.controller.php');
+	include_once('controllers/cart.controller.php');
 
 	$router = new Router();
 	$router->addRoute('/home', function($url){
@@ -25,6 +26,11 @@ session_start();
 	$router->addRoute('/product_detail', function($url){
 		$productdetail = new ProductDetailController();
 		print_r($productdetail->view($_GET['id']));
+	});
+
+	$router->addRoute('/cart', function($url){
+		$cart = new CartController();
+		print_r($cart->view($_GET['userid']));
 	});
 
 	$router->run();
