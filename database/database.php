@@ -1,9 +1,5 @@
 <?php 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "webDB";
-
+include_once ('../views/config.php');
 
 $conn = new mysqli($servername, $username, $password);
 

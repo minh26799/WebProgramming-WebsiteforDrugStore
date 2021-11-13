@@ -5,7 +5,8 @@ class Cart{
     private $connection;
     private function connect()
     {
-        $this->connection = new mysqli('localhost', 'root', '', 'webDB');
+        include ('../views/config.php');
+        $this->connection = new mysqli($servername, $username, $password, $dbname);
     }
 
     public function listCart($userID){
