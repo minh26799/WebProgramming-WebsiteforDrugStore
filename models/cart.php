@@ -3,39 +3,68 @@
 class Cart{
 
     private $connection;
-
-    private function connect(){
-        $this->$connection = new mysqli('localhost', 'root', '', 'webDB');
+    private function connect()
+    {
+        $this->connection = new mysqli('localhost', 'root', '', 'webDB');
     }
 
-    public function addToCart() {
+    public function listCart($userID){
         $this->connect();
 
-        $uid = $session['username'];
-        $pid = $post['productid'];
-        $pname = $post['productname'];
-        $quantity = $post['quantity'];
-        $date = $post['date'];
-        $phid = "";
-        if (isset($_POST['pharmacyid'])){
-            $phid = $post['pharmacyid'];
+        $sql_cmd = "SELECT p.productname, p.price, quantity FROM `incart` 
+        JOIN products p ON incart.productid = p.pid
+        WHERE `userid` = '$userID'";
+
+        $result = mysqli_query($this->connection, $sql_cmd);
+        
+        if (mysqli_num_rows($result) == 0) {
+            echo '<script type="text/javascript">
+                alert("Can\'t get list1!");
+            </script>';
+            return;
+        } else {
+            $this->connection->close();
+            return $result;
         }
-        $pid = "SELECT DISTINCT * FROM `incart` WHERE `productid` = $pid AND `userid` = $uid";
+    }
 
-        $uCresult = $this->$connection->query($userCart);
+    public function addToCart($userID, $pID, $quantity, $date) {
+        $this->connect();
+        
 
-        if($uCresult->num_rows > 0){
+        $phid = 'NULL';
+        // if (isset($_POST['pharmacyid'])){
+        //     $phid = $_POST['pharmacyid'];
+        // }
+
+        $product = "SELECT * FROM `incart` WHERE `productid` = '$pID' AND `userid` = '$userID'";
+
+        $uCresult = mysqli_query($this->connection, $product);
+
+        
+
+        if(mysqli_num_rows($uCresult) > 0){
+        
             $row = $uCresult->fetch_assoc();
             $newQuantity = $row['quantity'] + $quantity;
-            $updateQ = "UPDATE `incart` SET `quantity` =  $newQuantity WHERE  `productid` = $pid AND `userid` = $uid";
+            $updateQ = "UPDATE `incart` SET `quantity` =  '$newQuantity' WHERE  `productid` = '$pID' AND `userid` = '$userID'";
+            mysqli_query($this->connection, $updateQ);
+
             echo '<div> Updated successful </div>';
-            $this->$connection->close();
-        } else {
-            $insertNew = "INSERT INTO `incart` (`userid`, `productid`,`pharmacyid`, `quantity`, `date`) VALUES ($uid, $pid, '', $quantity, $date) ";
+            $this->connection->close();
+
+            return true;
+        } else {            
+            $query = "INSERT INTO incart 
+            (userid, productid, quantity, date, pharmacyid) VALUES 
+            ('$userID','$pID', '$quantity', '$date', $phid)";
+            
+            mysqli_query($this->connection, $query);
+
             echo '<div> Successful add new product </div>';
-            $this->$connection->close();
+            $this->connection->close();
+
+            return true;
         }
     }
 }
-
-?>

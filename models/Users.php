@@ -83,7 +83,7 @@ class Users
             return false;
         } else {
             $sql2 = "INSERT INTO users 
-            VALUES ('$this->uuid','$this->Username', '$this->encodedPassword', '$this->FirstName' ,'$this->LastName', '$this->Phone')";
+            VALUES ('$this->uuid','$this->Username', '$this->encodedPassword', '$this->FirstName' ,'$this->LastName', '$this->Phone', 'user')";
             $result2 = mysqli_query($this->connection, $sql2);
             if ($result2) //Successfully added the user
             {
@@ -95,7 +95,7 @@ class Users
             } else // Failed added a user
             {
                 //! Must be changed to the correct path
-                $url = ".../index.php/register?error=Registration Failed";
+                $url = "../index.php/register?error=Registration Failed";
                 header("Location: $url");
                 exit();
                 return false;
