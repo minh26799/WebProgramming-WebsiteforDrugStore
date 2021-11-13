@@ -58,16 +58,17 @@
                 <div class="thumbnail">
                     <img class="product-image" src="<?php echo $imageURL;?>">
                     
-                    <a href="./product_detail?id=<?php echo $row['pid']?>">
+                    
                     <div class="caption">
+                        <a href="./product_detail?id=<?php echo $row['pid']?>">
                         <h4><?php echo $row['productname'];?></h4>
                         <p><?php echo number_format($row['price'],0) . "đ";?></p>
+                        </a>
                         <p>
-                            <a href="#" class="btn btn-default" role="button">Add to cart</a>
-                            <a href="#" class="btn btn-primary" role="button">Buy now</a>
+                            <button class="btn btn-default btn-rounded">Add to cart</button>
+                            <button class="btn btn-primary btn-rounded">Buy Now</button>
                         </p>
                     </div>
-                    </a>
                 </div>
             </div>
             <?php

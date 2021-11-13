@@ -165,7 +165,7 @@ Validator.usernameCheck = function(selector, message) {
         selector: selector,
         test: function(value) {
             // ^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
-            if (/[a-zA-Z0-9]{8,12}/.test(value) == false) {
+            if (/[a-zA-Z0-9]{8,20}/.test(value) == false) {
                 return "Username must between 8 - 20 characters";
             } else if (/(?=.*[A-Z])/.test(value) == false) {
                 return "Username must contain at least a uppercase";

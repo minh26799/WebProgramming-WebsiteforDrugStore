@@ -103,7 +103,7 @@ $(document).ready(function(){
         <div class="container">
             <nav class="navbar navbar-default upper">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="./home">
                         <img class="logo" alt="Brand" src="../assets/icons/HCMUT_logo.png">
                     </a>
                     <form class="navbar-form">
@@ -130,7 +130,7 @@ $(document).ready(function(){
                 <div class="container-fluid">
                     
                     <ul class="nav navbar-nav right">
-                        <li><a href="#">SHOP</a></li>
+                        <li><a href="./home">SHOP</a></li>
                         <li><a href="#">ABOUT US</a></li>
                         <li></li>
                     </ul>
