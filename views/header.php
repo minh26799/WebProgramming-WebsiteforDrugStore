@@ -116,8 +116,8 @@ $(document).ready(function(){
                         <!-- <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button> -->
                     </form>
                     <ul class="nav navbar-nav">
-                        <li><a href="./login"> <span class="glyphicon glyphicon-user"></span> <?php if(isset($_SESSION['fullname'])) {echo $_SESSION['fullname'];} else {echo "Login";} ?></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                        <li><a href="<?php if(isset($_SESSION['id'])) {echo "#";} else {echo "./login";}?>"> <span class="glyphicon glyphicon-user"></span> <?php if(isset($_SESSION['fullname'])) {echo $_SESSION['fullname'];} else {echo "Login";} ?></a></li>
+                        <li><a href="<?php if(isset($_SESSION['id'])) {echo "./cart?userid=".$_SESSION['id'];}?>"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                         <?php 
                             if(isset($_SESSION['fullname'])){ ?>
                                 <li><a href="../controllers/logout.php">Logout</a></li>
