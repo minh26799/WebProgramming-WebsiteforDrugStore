@@ -11,7 +11,10 @@ class Cart{
     public function listCart($userID){
         $this->connect();
 
-        $sql_cmd = "SELECT * FROM incart WHERE userid = '$userID';";
+        $sql_cmd = "SELECT p.productname, p.price, quantity FROM `incart` 
+        JOIN products p ON incart.productid = p.pid
+        WHERE `userid` = '$userID'";
+
         $result = mysqli_query($this->connection, $sql_cmd);
         
         if (mysqli_num_rows($result) == 0) {
@@ -29,10 +32,10 @@ class Cart{
         $this->connect();
         
 
-        $phid = "";
-        if (isset($_POST['pharmacyid'])){
-            $phid = $_POST['pharmacyid'];
-        }
+        $phid = 'NULL';
+        // if (isset($_POST['pharmacyid'])){
+        //     $phid = $_POST['pharmacyid'];
+        // }
 
         $product = "SELECT * FROM `incart` WHERE `productid` = '$pID' AND `userid` = '$userID'";
 
@@ -52,9 +55,9 @@ class Cart{
 
             return true;
         } else {            
-            $query = "INSERT INTO incart ".
-            "(userid, productid, pharmacyid, quantity, date) "."VALUES ".
-            "('$userID','$pID','$phid', '$quantity', '$date')";
+            $query = "INSERT INTO incart 
+            (userid, productid, quantity, date, pharmacyid) VALUES 
+            ('$userID','$pID', '$quantity', '$date', $phid)";
             
             mysqli_query($this->connection, $query);
 

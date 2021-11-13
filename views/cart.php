@@ -71,15 +71,8 @@ $total = 0;
 		<div class="container-fluid">
 
 			<div class="table">
-				<a class='empty' href="checkout.php?empty=1">EmptyCart</a>
-				<table style="border-bottom: 1px #e3e3e3 solid; margin-bottom:20px;">
-					<tr>
-						<th>Name</th>
-						<th>Quantity</th>
-						<th>Price</th>
-						<th>Remove</th>
-					</tr>
 
+				<table style="border-bottom: 1px #e3e3e3 solid; margin-bottom:20px;">
 
 
 					<!-- Transactions in cart are fetched from user's session -->
@@ -89,23 +82,31 @@ $total = 0;
 						$cart = new CartController();
 						$cartItems = $cart->getCart($_GET['userid']);
 
-						if ($cartItems && mysqli_num_rows($cartItems) > 0) {
+						if ($cartItems && mysqli_num_rows($cartItems) > 0) { ?>
 
-							while ($item = $cartItems->fetch_assoc()) { ?>
+							<tr>
+								<th>Name</th>
+								<th>Quantity</th>
+								<th>Price</th>
+							</tr>
+
+							<?php while ($item = $cartItems->fetch_assoc()) { ?>
 
 								<tr>
-									<td><?php echo $item['productid']; ?></td>
+									<td><?php echo $item['productname']; ?></td>
 									<td><?php echo $item['quantity']; ?></td>
 									<td>
-										<?php echo $item['productid.price'] * $item['quantity'];
-										$pro = $item['productid.price'] * $item['quantity'];
-										$total = $total + $pro; ?>
+										<?php echo $item['price'];
+										$pro = $item['price'] * $item['quantity'];
+										$total = $total + $pro; 
+										?>
 									</td>
-									<!-- <td><a href="checkout.php?remove=<?php echo $item['productid']; ?>"><i class="fas fa-times"></i></a></td> -->
 								</tr>
 
+							<?php }
+						} else { ?>
+							<a class='empty' href="checkout.php?empty=1">EmptyCart</a>
 					<?php }
-						}
 					} ?>
 				</table>
 
