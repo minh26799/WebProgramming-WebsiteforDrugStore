@@ -40,4 +40,24 @@ if ($_POST['action'] == "Buy Now") {
     $user = $_POST['userID'];
     $url = "../index.php/cart?userid=$user";
     header("Location:" . $url);
+} elseif ($_POST['action'] == "Purchase") {
+    include_once('../models/transaction.php');
+
+    $transaction = new Transaction();
+    $currentDate = new DateTime();
+    $date = $currentDate->format('Y-m-d H:i:s');
+    $transactionInfo = unserialize(base64_decode($_POST['transaction']));
+
+    if ($transactionInfo && count($transactionInfo) > 0) {
+        foreach ($transactionInfo as $item) {
+            $transaction->makeTransaction($_POST['userID'], $item['pid'], $item['quantity'], $item['quantity'] * $item['price'], $date);
+        }
+    }
+
+    $cart = new Cart();
+    $cart->emptyCart($_POST['userID']);
+
+    $user = $_POST['userID'];
+    $url = "../index.php/cart?userid=$user";
+    header("Location:" . $url);
 }

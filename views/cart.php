@@ -76,8 +76,8 @@ $total = 0;
 						if ($cartItems && mysqli_num_rows($cartItems) > 0) { ?>
 
 							<form action="../controllers/cart_processing.php" method="POST">
-								<input type="hidden" name="userID" value="<?php echo $_GET['userid'] ?>" />
 								<input type="submit" name="action" value="Empty Cart" class="btn btn-success" />
+								<input type="hidden" name="userID" value="<?php echo $_GET['userid'] ?>" />
 							</form>
 
 							<table class="table table-hover">
@@ -119,18 +119,29 @@ $total = 0;
 
 								</tbody>
 
-							<?php } else { ?>
-								<div style="text-align: center; padding: 50px;">
-									<a class='btn btn-primary' style="font-size: 3rem;" href="./home">Your Cart is empty. Go buy some drugs!</a>
-								</div>
-						<?php }
-					} ?>
-
 							</table>
 
 							<div class="total" style="text-align: center;">
 								<h2>Total: <span><?php echo $total; ?></span></h2>
 							</div>
+
+							<?php
+							$transaction = $cart->getCart($_GET['userid'])->fetch_all(MYSQLI_ASSOC);
+							$transaction = base64_encode(serialize($transaction));
+							?>
+
+							<form style="text-align: center;" action="../controllers/cart_processing.php" method="POST">
+								<input type="submit" name="action" value="Purchase" class="btn btn-success" />
+								<input type="hidden" name="userID" value="<?php echo $_GET['userid'] ?>" />
+								<input style="display: none;" type="hidden" name="transaction" value="<?php echo $transaction ?>" />
+							</form>
+
+						<?php } else { ?>
+							<div style="text-align: center; padding: 50px;">
+								<a class='btn btn-primary' style="font-size: 3rem;" href="./home">Your Cart is empty. Go buy some drugs!</a>
+							</div>
+					<?php }
+					} ?>
 			</div>
 
 			<!-- <form action="cart.php" method="POST">
