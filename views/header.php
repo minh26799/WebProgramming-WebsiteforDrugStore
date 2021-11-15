@@ -11,6 +11,12 @@
             width: 100%;
             justify-content: space-between;
             align-items: center;
+            
+        }
+        .navbar.navbar-default.upper .container-fluid{
+            outline-style:double;
+            background-color: #ffffff;
+            outline-color: #ffffff;
         }
         .navbar-brand{
             padding: 0px;
@@ -35,28 +41,40 @@
             background-color:  #ffffff;
             color:  #000000;
         }
+        .navbar-form.navbar-center{
+            display: flex;
+            justify-content: center;
+            width: 40%;
+        }
+        .navbar-form.navbar-center .form-group{
+            width: 100%;
+        }
         .search-box{
-        width: 500px;
-        position: relative;
-        display: inline-block;
-        font-size: 14px;
+            width: 100%;
+            position: relative;
+            display: inline-block;
+            font-size: 14px;
         }
         .search-box input[type="text"]{
+            width: 100%;
             height: 32px;
-            padding: 5px 10px;
             border: 1px solid #CCCCCC;
             font-size: 14px;
         }
         .result{
-            position: absolute;        
+            position: absolute;       
+            width: 100%;
+            height: auto; 
             z-index: 999;
             top: 100%;
             left: 0;
             background: #ffffff;
+            overflow-y: scroll;
         }
-        .search-box input[type="text"], .result{
+        .search-box input[type="text"] .result{
             width: 100%;
             box-sizing: border-box;
+            
         }
 
         .result form{
@@ -106,7 +124,7 @@ $(document).ready(function(){
                     <a class="navbar-brand" href="./home">
                         <img class="logo" alt="Brand" src="../assets/icons/HCMUT_logo.png">
                     </a>
-                    <form class="navbar-form">
+                    <form class="navbar-form navbar-center">
                         <div class="form-group">
                             <div class="search-box">
                                 <input type="text" autocomplete="off" placeholder="Search products" />

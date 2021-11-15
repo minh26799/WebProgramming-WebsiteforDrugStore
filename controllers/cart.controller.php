@@ -3,11 +3,6 @@
 class CartController {
         
         public function view($userID) {
-            
-            
-            // $opts = array('http' => array('header' => 'Cookie: ' . $_SERVER['HTTP_COOKIE'] . "\r\n"));
-            // $context = stream_context_create($opts);
-            // session_write_close(); // unlock the file
 
             $data = http_build_query(array('userid' => $userID));
             $options = array( 

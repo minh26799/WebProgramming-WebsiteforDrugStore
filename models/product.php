@@ -40,6 +40,22 @@ class Products
             return $result;
         }
     }
+
+    public function getAmount($id) {
+        $this->connect();
+        $sql_cmd = "SELECT * FROM belongto WHERE productid = '".$id."';";
+        $result = $this->connection->query($sql_cmd);
+        
+        if ($result->num_rows == 0) {
+            echo '<script type="text/javascript">
+                alert("Can\'t get detail of product!");
+            </script>';
+            return;
+        } else {
+            $this->connection->close();
+            return $result;
+        }
+    }
 }
 
 ?>
