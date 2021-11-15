@@ -11,6 +11,12 @@
             width: 100%;
             justify-content: space-between;
             align-items: center;
+            
+        }
+        .navbar.navbar-default.upper .container-fluid{
+            outline-style:double;
+            background-color: #ffffff;
+            outline-color: #ffffff;
         }
         .navbar-brand{
             padding: 0px;
@@ -35,28 +41,40 @@
             background-color:  #ffffff;
             color:  #000000;
         }
+        .navbar-form.navbar-center{
+            display: flex;
+            justify-content: center;
+            width: 40%;
+        }
+        .navbar-form.navbar-center .form-group{
+            width: 100%;
+        }
         .search-box{
-        width: 500px;
-        position: relative;
-        display: inline-block;
-        font-size: 14px;
+            width: 100%;
+            position: relative;
+            display: inline-block;
+            font-size: 14px;
         }
         .search-box input[type="text"]{
+            width: 100%;
             height: 32px;
-            padding: 5px 10px;
             border: 1px solid #CCCCCC;
             font-size: 14px;
         }
         .result{
-            position: absolute;        
+            position: absolute;       
+            width: 100%;
+            height: auto; 
             z-index: 999;
             top: 100%;
             left: 0;
             background: #ffffff;
+            overflow-y: scroll;
         }
-        .search-box input[type="text"], .result{
+        .search-box input[type="text"] .result{
             width: 100%;
             box-sizing: border-box;
+            
         }
 
         .result form{
@@ -106,7 +124,7 @@ $(document).ready(function(){
                     <a class="navbar-brand" href="./home">
                         <img class="logo" alt="Brand" src="../assets/icons/HCMUT_logo.png">
                     </a>
-                    <form class="navbar-form">
+                    <form class="navbar-form navbar-center">
                         <div class="form-group">
                             <div class="search-box">
                                 <input type="text" autocomplete="off" placeholder="Search products" />
@@ -116,8 +134,8 @@ $(document).ready(function(){
                         <!-- <button type="submit" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></button> -->
                     </form>
                     <ul class="nav navbar-nav">
-                        <li><a href="./login"> <span class="glyphicon glyphicon-user"></span> <?php if(isset($_SESSION['fullname'])) {echo $_SESSION['fullname'];} else {echo "Login";} ?></a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                        <li><a href="<?php if(isset($_SESSION['id'])) {echo "./profile?userid=".$_SESSION['id'];} else { echo "./login";} ?>"> <span class="glyphicon glyphicon-user"></span> <?php if(isset($_SESSION['fullname'])) {echo $_SESSION['fullname'];} else {echo "Login";} ?></a></li>
+                        <li><a href="<?php if(isset($_SESSION['id'])) {echo "./cart?userid=".$_SESSION['id'];}?>"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                         <?php 
                             if(isset($_SESSION['fullname'])){ ?>
                                 <li><a href="../controllers/logout.php">Logout</a></li>

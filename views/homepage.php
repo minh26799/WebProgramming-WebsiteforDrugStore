@@ -68,17 +68,16 @@ include '../controllers/listProduct.controller.php';
                                     <h4><?php echo $row['productname']; ?></h4>
                                     <p><?php echo number_format($row['price'], 0) . "đ"; ?></p>
                                     <p>
-                                        <?php if (isset($_SESSION['fullname'])) { ?>
-
-                                            <a href="#" class="btn btn-default" role="button">Add to cart</a>
-                                            <!-- <a href="./cart?userid=<?php echo $_SESSION['id'] ?>" class="btn btn-primary" role="button">Buy now</a> -->
+                                        <?php if (isset($_SESSION['fullname'])) { 
+                                            $_SESSION['redirect_url'] = "../index.php/home";
+                                            ?>
 
                                     <form action="../controllers/cart_processing.php" method="POST">
                                         <input type="hidden" name="userID" value="<?php echo $_SESSION['id'] ?>" />
                                         <input type="hidden" name="productID" value="<?php echo $row['pid'] ?>" />
                                         <input type="hidden" name="quantity" value="1" />
-                                        <input type="hidden" name="action" value="BuyNow" />
-                                        <input type="submit" value="Buy now" class="btn btn-primary" />
+                                        <input type="submit" name="action" value="Add To Cart" class="btn btn-default" />
+                                        <input type="submit" name="action" value="Buy Now" class="btn btn-primary" />
                                     </form>
 
                                 <?php } else { ?>
