@@ -38,6 +38,15 @@
             flex-direction: column;
             gap: 10px;
         }
+
+        .col-lg-7.col-md-7.col-sm-6 .available{
+            color: #7a9c59;
+            font-weight: 600;
+        }
+        .col-lg-7.col-md-7.col-sm-6 .sold-out{
+            color: #FF0000;
+            font-weight: 600;
+        }
     </style>
 </head>
 
@@ -55,6 +64,7 @@
                 <?php 
                     $productdetail = new ProductDetailController();
                     $detail = $productdetail->getDetail($_GET['id'])->fetch_assoc();
+                    $amount = $productdetail->getAmount($_GET['id']);
                     $imageURL = '../assets/images/' . $detail['productname'] . '.jpeg';
                 ?> 
                 <div class="col-lg-5 col-md-5 col-sm-6">
@@ -67,21 +77,24 @@
                     </h2>
                     <h4 class="box-title mt-5">Product description</h4>
                     <p><?php echo $detail['description']?></p>
-                    
+                    <?php if( $amount > 0) {?>
+                    <h4 class="available"><?php echo 'Available (' . $amount . ')'?></h4>
+                    <?php } else {?>
+                    <h4 class="sold-out"><?php echo 'Sold out'?></h4>
+                    <?php }?>
                     <div class="input-group number-spinner">
                         <span class="input-group-btn">
                             <button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
                         </span>
-                        <input type="text" class="form-control text-center" value="1">
+                        <input type="text" class="form-control text-center" id="amount" onchange="checkAvilable(value)" value="0">
                         <span class="input-group-btn">
                             <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
                         </span>
                     </div>
                     <div>
-                    <button class="btn btn-default btn-rounded">Add to cart</button>
-                    <button class="btn btn-primary btn-rounded">Buy Now</button>
+                    <button class="btn btn-default btn-rounded" id="add">Add to cart</button>
+                    <button class="btn btn-primary btn-rounded" id="buy">Buy Now</button>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -108,7 +121,20 @@
                     newVal = 1;
                 }
             }
+            checkAvilable(newVal)
             btn.closest('.number-spinner').find('input').val(newVal);
         });
+        
+        var check = false;
+        const amount = <?php echo $amount;?>;
+        function checkAvilable(value){
+            if(value > parseInt(amount)){
+                check = true;
+            } else {
+                check = false;
+            }
+            document.getElementById("add").disabled = check;
+            document.getElementById("buy").disabled = check;
+        }
     </script>
 </html>
