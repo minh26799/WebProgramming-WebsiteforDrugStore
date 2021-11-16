@@ -56,7 +56,74 @@ class Products
             return $result;
         }
     }
+    public function AddProduct($pname, $price, $treatment, $des, $phid, $quantity, $filename, $tmpname){
 
+        $this->connect();
+
+        $product_sql = "SELECT * FROM `products` WHERE `productname` = '$pname'";
+
+        $presult = mysqli_query($this->connection, $product_sql);
+        // nếu tồn tại trong products thì check belongto
+        if (mysqli_num_rows($presult) > 0) {
+            $row = $presult->fetch_assoc();
+            $productID = $row['pid'];
+            $belong_sql = "SELECT * FROM `belongto` WHERE `pharmacyid` = '$phid' AND `productid` = '$productID'";
+            echo "1";
+            $bresult = mysqli_query($this->connection, $belong_sql);
+            // Nếu có belong to 1 pharmacy nào đó thì update
+            if (mysqli_num_rows($bresult) > 0) {
+                echo "2";
+                $brow = $bresult->fetch_assoc();
+                $newQuantity = $brow['quantity'] + $quantity;
+                $updateQ = "UPDATE `belongto` SET `quantity` =  '$newQuantity' WHERE  `productid` = '$productID' AND `pharmacyid` = '$phid'";
+                mysqli_query($this->connection, $updateQ);
+                echo '<div> Updated successful </div>';
+                $this->connection->close();
+            } else { // Không belong to pharmacy nào thì add mới 
+                echo "3";
+                $insert = $this->connection->query("INSERT into `belongto` (`pharmacyid`, `productid`, `quantity`) VALUES ('$phid', '$productID', '$quantity')");
+                echo '<div> Updated successful </div>';
+                $this->connection->close();
+            } 
+        } else { // Không tồn tại trong product thì add mới xong add vào belong to
+            $statusMsg = '';
+            echo "4";
+            $backlink = ' <a href="./home">Go back</a>';
+            // File upload path
+            $targetDir = "../assets/images/";
+            $fileName = basename($filename);
+            $targetFilePath = $targetDir . $fileName;
+            $fileType = pathinfo($targetFilePath,PATHINFO_EXTENSION);
+            $pid = uniqid();
+            // $iprice = (int)$price;
+            
+            // Allow certain file formats
+            $allowTypes = array('jpg','png','jpeg','gif','pdf');
+            if (!file_exists($targetFilePath)) {
+                if(in_array($fileType, $allowTypes)){
+                        // Upload file to server
+                    if(move_uploaded_file($tmpname ,$targetFilePath)){
+                        // Insert image file name into database
+                        $insert = $this->connection->query("INSERT into `products` (`pid`, `productname`, `condition`, `price`, `description`) VALUES ('$pid', '$pname', '$treatment', '$price', '$des')");
+                        $binsert = $this->connection->query("INSERT into `belongto` (`pharmacyid`, `productid`, `quantity`) VALUES ('$phid', '$pid', '$quantity')");
+                        if($insert){
+                            $statusMsg = "The file <b>".$fileName. "</b> has been uploaded successfully." . $backlink;
+                        }else{
+                            $statusMsg = "File upload failed, please try again." . $backlink;
+                        } 
+                    }else{
+                        $statusMsg = "Sorry, there was an error uploading your file." . $backlink;
+                    }
+                }else{
+                    $statusMsg = "Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload." . $backlink;
+                }
+            }else{
+                $statusMsg = "The file <b>".$fileName. "</b> is already exist." . $backlink;
+            }
+            // Display status message
+            echo $statusMsg;
+        }
+    }
 }
 
 ?>

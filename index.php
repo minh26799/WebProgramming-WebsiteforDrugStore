@@ -7,6 +7,7 @@ session_start();
 	include_once('controllers/home.controller.php');
 	include_once('controllers/cart.controller.php');
 	include_once('controllers/profile.controller.php');
+	include_once('controllers/editProfile.controller.php');
 	include_once('controllers/addproduct.controller.php');
 
 	$router = new Router();

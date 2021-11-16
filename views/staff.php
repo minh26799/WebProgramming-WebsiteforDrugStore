@@ -42,28 +42,22 @@ include '../controllers/listProduct.controller.php';
     <main role="main" class="flex-shrink-0">
         <div class="container-fluid">
             <body>
-                <form action="upload.php" method="post" enctype="multipart/form-data">
+                <form action="../controllers/addProduct_processing.php" method="post" enctype="multipart/form-data" >
                         Select Image File to Upload:
                     <input type="file" name="file">
+                    <input type="text" name="productname" placeholder="Product Name" id="productname" class="TextField form-control" rules="required" />
+                    <input type="number" name="price" placeholder="Price" id="price" class="TextField form-control" rules="required" />
+                    <input type="text" name="treatment" placeholder="Treatment" id="treatment" class="TextField form-control" rules="required" />
+                    <input type="text" name="description" placeholder="Description" id="description" class="TextField form-control" rules="required" />
+                    <input type="number" name="quantity" placeholder="Quantity" id="quantity" class="TextField form-control" rules="required" />
+                    <input type="text" name="pharmacyname" placeholder="Pharmacy Name" id="pharmacyname" class="TextField form-control" rules="required" />
                     <input type="submit" name="submit" value="Upload">
                 </form>
-                <hr>
-                <?php
-                // Include the database configuration file
-                include 'config.php';
-                // Get images from the database
-                $query = $db->query("SELECT file_name FROM images ORDER BY uploaded_on DESC");
-                if($query->num_rows > 0){
-                    while($row = $query->fetch_assoc()){
-                        $imageURL = 'uploads/'.$row["file_name"];
-                ?>
-                    <img src="<?= $imageURL; ?>" />
-                <?php }} ?>
             </body>
         </div>
         <footer>
             <?php include "footer.php" ?>
         </footer>
     </main>
-
+    <!-- enctype="multipart/form-data" -->
 </html>
