@@ -26,6 +26,15 @@ if ($_POST['action'] == "Buy Now") {
     unset($_SESSION['redirect_url']);
 
     header("Location:" . $redirect_url);
+} elseif ($_POST['action'] == "Minus To Cart") {
+    $cart = new Cart();
+    $cart->minusToCart($_POST['userID'], $_POST['productID'], $_POST['quantity']);
+
+    session_start();
+    $redirect_url = (isset($_SESSION['redirect_url'])) ? $_SESSION['redirect_url'] : '/';
+    unset($_SESSION['redirect_url']);
+
+    header("Location:" . $redirect_url);
 } elseif ($_POST['action'] == "Remove") {
     $cart = new Cart();
     $cart->removeFromCart($_POST['userID'], $_POST['productID']);
