@@ -4,6 +4,7 @@ session_start();
 
 <?php
 include '../controllers/profile.controller.php';
+include '../models/Users.php';
 
 // Total amount of money
 $total = 0;
@@ -50,6 +51,20 @@ $total = 0;
             height: 80px;
             width: auto;
         }
+
+        /* .container-fluid .user-profile .table-user-info {
+            width: 90%;
+            height: 100%;
+            position: relative;
+        } */
+        /* .position-relative {
+            top: 100px;
+        } */
+
+        .info-table {
+            position: relative;
+            top: 20px;
+        }
     </style>
 </head>
 
@@ -59,17 +74,42 @@ $total = 0;
     </header>
 
     <main role="main">
-        <div class="container-fluid">
+        <div class="container-fluid" style="position: relative;">
 
-            <div class="user-profile">
+            <div class="user-profile" style="width: 20%;">
                 <!-- CODE HERE, Đăng -->
+                <table class="table info-table" style="border-bottom: 1px #e3e3e3 solid;">
+                
+                    <thead>
+                        <tr>
+                            <th scope="col">Field</th>
+                            <th scope="col">info</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Username</td>
+                            <td><?php if(isset($_SESSION['username'])) echo $_SESSION['username']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Firstname</td>
+                            <td><?php if(isset($_SESSION['firstname'])) echo $_SESSION['firstname']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Lastname</td>
+                            <td><?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname']; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td><?php if(isset($_SESSION['phone'])) echo $_SESSION['phone']; ?></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <a class="btn-block btn btn-primary" href="./editProfile" role="button">Edit profile</a>
             </div>
-
-            <div class="cart-table" style="width: 100%;">
+            <div class="cart-table" style="width: 80%; position:relative;">
 
                 <table class="table" style="border-bottom: 1px #e3e3e3 solid; margin-bottom:20px;">
-
-
                     <!-- Transactions in cart are fetched from user's session -->
                     <?php
                     if ($_GET) {
@@ -124,7 +164,16 @@ $total = 0;
             </div>
 
         </div>
+        <script>
+            var transaction = document.querySelector(".cart-table");
+            var userProfile = document.querySelector('.user-profile');
+            let heights = transaction.offsetHeight.toString();
+            console.log(heights);
+            userProfile.style.height = `${heights}px`;
+        </script>
         <footer>
+            <br>
+            <br>
             <?php include "footer.php" ?>
         </footer>
     </main>
