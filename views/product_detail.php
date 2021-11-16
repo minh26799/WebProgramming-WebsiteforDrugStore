@@ -133,10 +133,10 @@ include '../controllers/productDetail.controller.php';
         if (btn.attr('data-dir') == 'up') {
             newVal = parseInt(oldValue) + 1;
         } else {
-            if (oldValue > 1) {
+            if (oldValue > 0) {
                 newVal = parseInt(oldValue) - 1;
             } else {
-                newVal = 1;
+                newVal = 0;
             }
         }
         checkAvilable(newVal);
