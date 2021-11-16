@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+?>
 <html lang="en">
 
 <head>
@@ -42,7 +45,7 @@
         <span class="form-message" id="response" href="javascript: reload()"></span>
         <div class="account-info">
             <div class="form-group">
-                <input type="text" name="username" placeholder="*Username" id="Username" class="TextField form-control" rules="required" />
+                <input type="text" name="username" placeholder="*Username" id="Username" class="TextField form-control" rules="required"  value=<?php echo $_SESSION['username']; ?> />
                 <span class="form-message" id="uname"></span>
             </div>
             <div class="form-group">
@@ -58,15 +61,15 @@
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="firstname" placeholder="First Name" id="Firstname" class="TextField form-control" rules="required" />
+                <input type="text" name="firstname" placeholder="First Name" id="Firstname" class="TextField form-control" rules="required" value=<?php echo $_SESSION['firstname']; ?>  />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="lastname" placeholder="Last Name" id="Lastname" class="TextField form-control" rules="required" />
+                <input type="text" name="lastname" placeholder="Last Name" id="Lastname" class="TextField form-control" rules="required" value=<?php echo $_SESSION['lastname']; ?>  />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="phone" placeholder="Phone" id="Phone" class="TextField form-control" rules="required" />
+                <input type="text" name="phone" placeholder="Phone" id="Phone" class="TextField form-control" rules="required" value=<?php echo $_SESSION['phone']; ?>   />
                 <span class="form-message"></span>
             </div>
         </div>

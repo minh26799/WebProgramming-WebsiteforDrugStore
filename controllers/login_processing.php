@@ -7,7 +7,6 @@
     if (isset($_POST['username']) && isset($_POST['password'])) {
         $checker = $newUser->login($_POST);
         if ($checker){
-            header("Location: ../index.php/home");
         }
     } else {
         header("Location: ../index.php/login");
