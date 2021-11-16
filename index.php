@@ -25,6 +25,11 @@ session_start();
 		print_r($register->view());
 	});
 
+	$router->addRoute('/editProfile', function ($url) {
+		$editProfile = new EditProfileController();
+		print_r($editProfile->view($_SESSION['id']));
+	});
+	
 	$router->addRoute('/product_detail', function($url){
 		$productdetail = new ProductDetailController();
 		print_r($productdetail->view($_GET['id']));

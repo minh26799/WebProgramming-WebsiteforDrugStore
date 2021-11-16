@@ -8,11 +8,37 @@
     <link rel="stylesheet" href="../assets/css/themify-icons/themify-icons.css">
     <link rel="stylesheet" href="../assets/css/registerBoxStyle.css">
     <script language="JavaScript" type="text/javascript" src="../views/validator.js"></script>
+    <style>
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        body {
+            overflow: scroll;
+        }
+    </style>
     <title>Register</title>
 </head>
+
 <body>
-    <form class="form" id="form-1" action="../controllers/register_processing.php" method="post">
-        <h1 class="register-content">Register</h1>
+    <form class="form" id="form-1" action="../controllers/editProfile_processing.php" method="post">
+        <h1 class="register-content">Edit Profile</h1>
         <span class="form-message" id="response" href="javascript: reload()"></span>
         <div class="account-info">
             <div class="form-group">
@@ -20,11 +46,15 @@
                 <span class="form-message" id="uname"></span>
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="*Password" id="Password" class="PasswordField form-control" rules="required|min:6" />
+                <input type="password" name="password" placeholder="*Passowrd" id="Password" class="PasswordField form-control" rules="required|min:6" />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="password" name="password2" placeholder="*Re-type password" id="RetypePassword" class="PasswordField form-control" rules="required" />
+                <input type="password" name="password3" placeholder="*Re-type Password" id="Password2" class="PasswordField form-control" rules="required|min:6" />
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password2" placeholder="*New Password" id="RetypePassword" class="PasswordField form-control" rules="required" />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
@@ -40,9 +70,10 @@
                 <span class="form-message"></span>
             </div>
         </div>
-        <!-- <button id="sign-up-button" type="submit" form="form-1" value="Submit">Register</button> -->
-        <input id="sign-up-button" type="submit" name="signup_submit" value="Sign me up" />
-        <input id="back-to-login" onclick="location.href='./login';" value="Back to Login"></button>
+        <input id="sign-up-button" type="submit" name="signup_submit" value="Edit" />
+        <?php if (isset($_GET['userid'])) { ?>
+            <input id="back-to-login" value="Back to Profile" onclick="location.href='<?php echo './profile?userid=' . $_GET['userid']; ?>'" />
+        <?php } ?>
     </form>
     <script language="JavaScript" type="text/javascript">
         document.addEventListener('DOMContentLoaded', function() {
@@ -60,17 +91,19 @@
                     Validator.phoneCheck('#Phone', 'Phone must be in correct form'),
                     Validator.isRequired('#Password', 'Password must be filled'),
                     Validator.minLength('#Password', 8, 'Password is at least 8 characters'),
-                    Validator.isConfirmed('#RetypePassword', function() {
-                        return document.querySelector('#Password').value;
-                    }, 'Pasword is not match'),
+                    Validator.isConfirmed('#Password2', function() {
+                        return document.querySelector('#Password').value
+                    }, "Old Passowrd is not correct"),
                     Validator.passwordCheck('#Password')
                 ],
             });
         });
+
         function getParameter(parameterName) {
             let parameter = new URLSearchParams(window.location.search);
             return parameter.get(parameterName);
         }
+
         var baseURL = window.location.href.split("?")[0];
         var success = getParameter('success');
         var error = getParameter('error');

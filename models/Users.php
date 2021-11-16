@@ -7,6 +7,8 @@ class Users
     private $LastName;
     private $uuid;
     private $connection;
+    private $encodedPassword;
+    private $newEncodedPassword;
 
     public function validate($data)
     {
@@ -46,20 +48,17 @@ class Users
             $_SESSION['firstname'] = $row['firstname'];
             $_SESSION['lastname'] = $row['lastname'];
             $_SESSION['id'] = $row['uid'];
-            $_SESSION['fullname'] = $row['firstname']." ".$row['lastname'];
             $_SESSION['role'] = $row['role'];
             //! Must be changed to the correct path
             // $url = "../index.php/home"; // url to redirect to homepage 
             // header("Location: $url");
             // exit();
+            $_SESSION['fullname'] = $row['firstname'] . " " . $row['lastname'];
+            $_SESSION['phone'] = $row['phone'];
             return true;
         } else {
-            //! Must be changed to the correct path
-            // url to redirect to login page and print the error message 
-            // echo "HERE";
             $url = "../index.php/login?error=Incorrect Username or Password";
             header("Location: $url");
-            
             exit();
             return false;
         }
@@ -77,7 +76,6 @@ class Users
         $result = mysqli_query($this->connection, $sql);
         if (mysqli_num_rows($result) > 0) // The username already exists
         {
-            //! Must be changed to the correct path
             $url = "../index.php/register?error=Username already exists";
             header("Location: $url");
             exit();
@@ -103,27 +101,49 @@ class Users
             }
         }
     }
-
-    // public function getUUIDbyUsername()
-    // {
-    //     $sql = "SELECT uuid FROM users WHERE username = '$this->Username'";
-    //     $result = $this->connection->query($sql);
-    //     if ($result->num_rows > 0) {
-    //         $row = $result->fetch_assoc();
-    //         return $row['uuid'];
-    //     } else {
-    //         return "";
-    //     }
-    // }
-    // public function logout($uuid)
-    // {
-    //     unset($_SESSION["$uuid"]);
-    //     session_destroy();
-    //     //! Must change after merge code
-    //     $url = "./index.php";
-    //     header("Location: $url");
-    //     $this->connection->close();
-    // }
+    public function editProfile($post_method)
+    {
+        $this->Username = $this->validate($post_method['username']);
+        $this->Password = $this->validate($post_method['password']);
+        $this->newPassword = $this->validate($post_method['password2']);
+        $this->FirstName = $post_method['firstname'];
+        $this->LastName = $post_method['lastname'];
+        $this->Phone = $post_method['phone'];
+        $this->newEncodedPassword = md5($this->newPassword);
+        $this->encodedPassword = md5($this->Password);
+        $sql = "SELECT * FROM users WHERE username = '$this->Username' AND password ='$this->encodedPassword'";
+        $result = mysqli_query($this->connection, $sql);
+        if (mysqli_num_rows($result) > 0) // The username already exists
+        {
+            $sql2 =
+                "UPDATE users
+            SET password = '$this->newEncodedPassword',firstname = '$this->FirstName',lastname ='$this->LastName',phone = '$this->Phone'
+            WHERE username = '$this->Username' AND password ='$this->encodedPassword';
+            ";
+            $result = $this->connection->query($sql2);
+            if ($result) {
+                $sql3 = "SELECT * FROM users WHERE username = '$this->Username' AND password ='$this->newEncodedPassword'";
+                $result = $this->connection->query($sql3);
+                if ($result) {
+                    $row = $result->fetch_assoc();
+                    $_SESSION['username'] = $row['username'];
+                    $_SESSION['firstname'] = $row['firstname'];
+                    $_SESSION['lastname'] = $row['lastname'];
+                    $_SESSION['fullname'] = $row['firstname'] . " " . $row['lastname'];
+                    $_SESSION['phone'] = $row['phone'];
+                    $_SESSION['id'] = $row['uid'];
+                    $url = "../index.php/editProfile?success=Edition Successful";
+                    header("Location: $url");
+                    exit();
+                    return true;
+                }
+            }
+        } else {
+            //! Must be changed to the correct path
+            $url = "../index.php/editProfile?error=  Edition Failed";
+            header("Location: $url");
+            exit();
+            return false;
+        }
+    }
 };
-
-?>
