@@ -56,6 +56,7 @@ class Products
             return $result;
         }
     }
+
 }
 
 ?>

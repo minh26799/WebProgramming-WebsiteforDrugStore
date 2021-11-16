@@ -47,6 +47,7 @@ class Users
             $_SESSION['lastname'] = $row['lastname'];
             $_SESSION['id'] = $row['uid'];
             $_SESSION['fullname'] = $row['firstname']." ".$row['lastname'];
+            $_SESSION['role'] = $row['role'];
             //! Must be changed to the correct path
             // $url = "../index.php/home"; // url to redirect to homepage 
             // header("Location: $url");

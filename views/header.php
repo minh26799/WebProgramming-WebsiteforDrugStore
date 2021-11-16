@@ -140,6 +140,11 @@ $(document).ready(function(){
                             if(isset($_SESSION['fullname'])){ ?>
                                 <li><a href="../controllers/logout.php">Logout</a></li>
                         <?php } ?>
+                        <?php 
+                            if(isset($_SESSION['role']) and $_SESSION['role'] == "staff" ){
+                        ?>
+                            <li><a href="./addproduct">Add Product</a></li>
+                        <?php } ?>
                         
                     </ul>
                 </div>
