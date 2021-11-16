@@ -8,6 +8,7 @@ session_start();
 	include_once('controllers/cart.controller.php');
 	include_once('controllers/profile.controller.php');
 	include_once('controllers/editProfile.controller.php');
+	include_once('controllers/admin.controller.php');
 	include_once('controllers/addproduct.controller.php');
 
 	$router = new Router();
@@ -39,6 +40,11 @@ session_start();
 	$router->addRoute('/cart', function($url){
 		$cart = new CartController();
 		print_r($cart->view($_GET['userid']));
+	});
+
+	$router->addRoute('/admin', function ($url) {
+		$admin = new AdminController();
+		print_r($admin->view($_GET['userid']));
 	});
 
 	$router->addRoute('/profile', function($url){

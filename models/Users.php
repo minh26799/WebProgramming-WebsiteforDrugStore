@@ -1,4 +1,16 @@
 <?php
+
+
+function generate_string($input, $strength = 16) { 
+    $input_length = strlen($input); 
+    $random_string = ''; 
+    for($i = 0; $i < $strength; $i++) { 
+        $random_character = $input[mt_rand(0, $input_length - 1)]; 
+        $random_string .= $random_character; 
+    } 
+    return $random_string;
+}
+
 class Users
 {
     private $Username;
@@ -55,6 +67,13 @@ class Users
             // exit();
             $_SESSION['fullname'] = $row['firstname'] . " " . $row['lastname'];
             $_SESSION['phone'] = $row['phone'];
+            $_SESSION['role'] = $row['role'];
+            if($row['role'] != 'admin'){
+                header("Location: ../index.php/home");
+            } else {
+                header("Location: ../index.php/admin?userid=" . $_SESSION['id']);
+            }
+            exit();
             return true;
         } else {
             $url = "../index.php/login?error=Incorrect Username or Password";
@@ -145,5 +164,38 @@ class Users
             exit();
             return false;
         }
+    }
+
+    public function getListAccount(){
+
+        $sql_cmd = "SELECT * FROM users WHERE role = 'staff'";
+        $result = $this->connection->query($sql_cmd);
+
+        if ($result->num_rows == 0) {
+            return;
+        } else {
+            $this->connection->close();
+            return $result;
+        }
+    }
+
+    public function removeStaff($userID) {
+        $remove = "DELETE FROM `users` WHERE `uid` = '$userID'";
+        mysqli_query($this->connection, $remove);
+        
+        $this->connection->close();
+        return true;
+    }
+
+    public function addStaff() {
+        
+        $permitted_chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $Username = generate_string($permitted_chars, 15);
+        $Password = 'Staff123';
+        $uuid = uniqid();
+        $encodedPassword = md5($Password);
+        $sql2 = "INSERT INTO users 
+        VALUES ('$uuid','$Username', '$encodedPassword', ' ' ,' ', ' ', 'staff')";
+        $result2 = mysqli_query($this->connection, $sql2);
     }
 };
