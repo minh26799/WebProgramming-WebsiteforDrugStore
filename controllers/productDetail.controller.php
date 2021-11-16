@@ -28,5 +28,16 @@ class ProductDetailController {
         return $productDetail;
     }
 
+    public function getAmount($id) {
+        include_once('../models/product.php');
+        $product = new Products();
+        $productDetail = $product->getAmount($id);
+        $amount = 0;
+        while ($row = $productDetail->fetch_assoc()) {
+            $amount = $amount + $row['quantity'];
+        }
+        return $amount;
+    }
+
 }
 ?>
