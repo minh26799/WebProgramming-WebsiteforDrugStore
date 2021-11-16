@@ -10,7 +10,6 @@
     <script language="JavaScript" type="text/javascript" src="../views/validator.js"></script>
     <title>Register</title>
 </head>
-
 <body>
     <form class="form" id="form-1" action="../controllers/register_processing.php" method="post">
         <h1 class="register-content">Register</h1>
@@ -68,12 +67,10 @@
                 ],
             });
         });
-
         function getParameter(parameterName) {
             let parameter = new URLSearchParams(window.location.search);
             return parameter.get(parameterName);
         }
-
         var baseURL = window.location.href.split("?")[0];
         var success = getParameter('success');
         var error = getParameter('error');
