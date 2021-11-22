@@ -99,25 +99,20 @@ class Users
     public function editProfile($post_method)
     {
         $this->Username = $this->validate($post_method['username']);
-        $this->Password = $this->validate($post_method['password']);
-        $this->newPassword = $this->validate($post_method['password2']);
         $this->FirstName = $post_method['firstname'];
         $this->LastName = $post_method['lastname'];
         $this->Phone = $post_method['phone'];
-        $this->newEncodedPassword = md5($this->newPassword);
-        $this->encodedPassword = md5($this->Password);
-        $sql = "SELECT * FROM users WHERE username = '$this->Username' AND password ='$this->encodedPassword'";
+        $sql = "SELECT * FROM users WHERE username = '$this->Username'";
         $result = mysqli_query($this->connection, $sql);
         if (mysqli_num_rows($result) > 0) // The username already exists
         {
             $sql2 =
                 "UPDATE users
-            SET password = '$this->newEncodedPassword',firstname = '$this->FirstName',lastname ='$this->LastName',phone = '$this->Phone'
-            WHERE username = '$this->Username' AND password ='$this->encodedPassword';
-            ";
+            SET firstname = '$this->FirstName',lastname ='$this->LastName',phone = '$this->Phone'
+            WHERE username = '$this->Username';";
             $result = $this->connection->query($sql2);
             if ($result) {
-                $sql3 = "SELECT * FROM users WHERE username = '$this->Username' AND password ='$this->newEncodedPassword'";
+                $sql3 = "SELECT * FROM users WHERE username = '$this->Username'";
                 $result = $this->connection->query($sql3);
                 if ($result) {
                     $row = $result->fetch_assoc();
@@ -136,6 +131,37 @@ class Users
         } else {
             //! Must be changed to the correct path
             $url = "../index.php/editProfile?error=  Edition Failed";
+            header("Location: $url");
+            exit();
+            return false;
+        }
+    }
+
+    public function editPassword($post_method)
+    {
+        $this->Username = $this->validate($post_method['username']);
+        $this->encodedPassword = md5($this->validate($post_method['password']));
+        $this->newEncodedPassword = md5($this->validate($post_method['newPassword']));
+        $sql = "SELECT * FROM users WHERE username = '$this->Username' AND password = '$this->encodedPassword';";
+        $result = mysqli_query($this->connection, $sql);
+        if (mysqli_num_rows($result) > 0) // The username already exists
+        {
+            $sql2 =
+                "UPDATE users
+            SET password = '$this->newEncodedPassword'
+            WHERE username = '$this->Username' AND password = '$this->encodedPassword';";
+            $result = $this->connection->query($sql2);
+            if ($result) {
+            
+                $url = "../controllers/logout.php";
+                echo "<script type='text/javascript'>alert('Password Changed');</script>";
+                header("Location: $url");
+                exit();
+                return true;
+            }
+        } else {
+            //! Must be changed to the correct path
+            $url = "../index.php/editPassword?error=Password Failed";
             header("Location: $url");
             exit();
             return false;
