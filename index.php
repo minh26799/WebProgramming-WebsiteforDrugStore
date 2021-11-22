@@ -8,6 +8,7 @@ include_once('controllers/home.controller.php');
 include_once('controllers/cart.controller.php');
 include_once('controllers/profile.controller.php');
 include_once('controllers/editProfile.controller.php');
+include_once('controllers/editPassword.controller.php');
 
 $router = new Router();
 $router->addRoute('/home', function ($url) {
@@ -28,6 +29,11 @@ $router->addRoute('/register', function ($url) {
 $router->addRoute('/editProfile', function ($url) {
 	$editProfile = new EditProfileController();
 	print_r($editProfile->view($_SESSION['id']));
+});
+
+$router->addRoute('/editPassword', function ($url) {
+	$editPassword = new EditPasswordController();
+	print_r($editPassword->view($_SESSION['id']));
 });
 
 $router->addRoute('/product_detail', function ($url) {
