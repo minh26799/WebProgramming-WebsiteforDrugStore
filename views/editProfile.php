@@ -1,4 +1,7 @@
 <!DOCTYPE html>
+<?php
+    session_start();
+?>
 <html lang="en">
 
 <head>
@@ -22,19 +25,39 @@
         <span class="form-message" id="response" href="javascript: reload()"></span>
         <div class="account-info">
             <div class="form-group">
+<<<<<<< HEAD
                 <input type="text" name="username" placeholder="Username" id="Username" class="TextField form-control" rules="required" />
                 <span class="form-message" id="uname"></span>
             </div>
             <div class="form-group">
                 <input type="text" name="firstname" placeholder="First Name" id="Firstname" class="TextField form-control" rules="required" />
+=======
+                <input type="text" name="username" placeholder="*Username" id="Username" class="TextField form-control" rules="required"  value=<?php echo $_SESSION['username']; ?> />
+                <span class="form-message" id="uname"></span>
+            </div>
+            <div class="form-group">
+                <input type="password" name="password" placeholder="*Passowrd" id="Password" class="PasswordField form-control" rules="required|min:6" />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="lastname" placeholder="Last Name" id="Lastname" class="TextField form-control" rules="required" />
+                <input type="password" name="password3" placeholder="*Re-type Password" id="Password2" class="PasswordField form-control" rules="required|min:6" />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="phone" placeholder="Phone" id="Phone" class="TextField form-control" rules="required" />
+                <input type="password" name="password2" placeholder="*New Password" id="RetypePassword" class="PasswordField form-control" rules="required" />
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <input type="text" name="firstname" placeholder="First Name" id="Firstname" class="TextField form-control" rules="required" value=<?php echo $_SESSION['firstname']; ?>  />
+>>>>>>> b42a7af0e656be328a55668e3feac7caa5f7cbd7
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <input type="text" name="lastname" placeholder="Last Name" id="Lastname" class="TextField form-control" rules="required" value=<?php echo $_SESSION['lastname']; ?>  />
+                <span class="form-message"></span>
+            </div>
+            <div class="form-group">
+                <input type="text" name="phone" placeholder="Phone" id="Phone" class="TextField form-control" rules="required" value=<?php echo $_SESSION['phone']; ?>   />
                 <span class="form-message"></span>
             </div>
         </div>
