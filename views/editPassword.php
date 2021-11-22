@@ -18,7 +18,7 @@
 
 <body>
     <form class="form" id="form-1" action="../controllers/editPassword_processing.php" method="post">
-        <h1 class="register-content">Edit Profile</h1>
+        <h1 class="register-content">Edit Password</h1>
         <span class="form-message" id="response" href="javascript: reload()"></span>
         <div class="account-info">
             <div class="form-group">

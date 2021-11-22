@@ -29,11 +29,11 @@
                 <span class="form-message" id="uname"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="firstname" placeholder="First Name" id="Firstname" class="TextField form-control" rules="required" />
+                <input type="text" name="firstname" placeholder="First Name" id="Firstname" class="TextField form-control" rules="required" value=<?php echo $_SESSION['firstname']; ?> />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="lastname" placeholder="Last Name" id="Lastname" class="TextField form-control" rules="required" value=<?php echo $_SESSION['lastname']; ?>  />
+                <input type="text" name="lastname" placeholder="Last Name" id="Lastname" class="TextField form-control" rules="required" value='<?php echo $_SESSION['lastname']; ?>'  />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
