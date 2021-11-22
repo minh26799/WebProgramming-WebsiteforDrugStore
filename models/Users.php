@@ -160,7 +160,6 @@ class Users
             return false;
         }
     }
-
     public function editPassword($post_method)
     {
         $this->Username = $this->validate($post_method['username']);
