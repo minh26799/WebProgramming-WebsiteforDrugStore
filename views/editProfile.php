@@ -9,28 +9,8 @@
     <link rel="stylesheet" href="../assets/css/registerBoxStyle.css">
     <script language="JavaScript" type="text/javascript" src="../views/validator.js"></script>
     <style>
-        /* width */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        /* Track */
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        /* Handle */
-        ::-webkit-scrollbar-thumb {
-            background: #888;
-        }
-
-        /* Handle on hover */
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
         body {
-            overflow: scroll;
+            overflow-y: scroll;
         }
     </style>
     <title>Register</title>
@@ -42,20 +22,8 @@
         <span class="form-message" id="response" href="javascript: reload()"></span>
         <div class="account-info">
             <div class="form-group">
-                <input type="text" name="username" placeholder="*Username" id="Username" class="TextField form-control" rules="required" />
+                <input type="text" name="username" placeholder="Username" id="Username" class="TextField form-control" rules="required" />
                 <span class="form-message" id="uname"></span>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password" placeholder="*Passowrd" id="Password" class="PasswordField form-control" rules="required|min:6" />
-                <span class="form-message"></span>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password3" placeholder="*Re-type Password" id="Password2" class="PasswordField form-control" rules="required|min:6" />
-                <span class="form-message"></span>
-            </div>
-            <div class="form-group">
-                <input type="password" name="password2" placeholder="*New Password" id="RetypePassword" class="PasswordField form-control" rules="required" />
-                <span class="form-message"></span>
             </div>
             <div class="form-group">
                 <input type="text" name="firstname" placeholder="First Name" id="Firstname" class="TextField form-control" rules="required" />
@@ -88,13 +56,7 @@
                     Validator.isRequired('#Firstname', 'Please fill your first name'),
                     Validator.isRequired('#Lastname', 'Please fill your last name'),
                     Validator.isRequired('#Phone', 'Please fill your phone number'),
-                    Validator.phoneCheck('#Phone', 'Phone must be in correct form'),
-                    Validator.isRequired('#Password', 'Password must be filled'),
-                    Validator.minLength('#Password', 8, 'Password is at least 8 characters'),
-                    Validator.isConfirmed('#Password2', function() {
-                        return document.querySelector('#Password').value
-                    }, "Old Passowrd is not correct"),
-                    Validator.passwordCheck('#Password')
+                    Validator.phoneCheck('#Phone', 'Phone must be in correct form')
                 ],
             });
         });
