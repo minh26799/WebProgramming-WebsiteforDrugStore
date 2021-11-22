@@ -161,7 +161,6 @@ class Users
         }
     }
 
-<<<<<<< HEAD
     public function editPassword($post_method)
     {
         $this->Username = $this->validate($post_method['username']);
@@ -192,7 +191,6 @@ class Users
             return false;
         }
     }
-=======
     public function getListAccount(){
 
         $sql_cmd = "SELECT * FROM users WHERE role = 'staff'";
@@ -225,5 +223,4 @@ class Users
         VALUES ('$uuid','$Username', '$encodedPassword', ' ' ,' ', ' ', 'staff')";
         $result2 = mysqli_query($this->connection, $sql2);
     }
->>>>>>> b42a7af0e656be328a55668e3feac7caa5f7cbd7
 };
