@@ -26,7 +26,8 @@ session_start();
 		$register = new RegisterController();
 		print_r($register->view());
 	});
-		$router->addRoute('/editProfile', function($url){
+	
+	$router->addRoute('/editPassword', function($url){
 		$editPassword = new EditPasswordController();
 		print_r($editPassword->view($_SESSION['id']));
 	});
