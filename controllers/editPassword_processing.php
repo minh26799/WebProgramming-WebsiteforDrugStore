@@ -4,9 +4,13 @@
     session_start();
     $newUser = new Users();
     $newUser->createConnection($servername, $username, $password, $dbname);
-    if (isset($_POST['username']) && isset($_POST['firstname'])&& isset($_POST['lastname'])) {
-        $newUser->editProfile($_POST);
-        
+    if (isset($_POST['username']) && isset($_POST['password'])&& isset($_POST['newPassword'])) {
+        $newUser->editPassword($_POST);
+        if($_SESSION['check']){
+            $url = "../controllers/logout.php";
+            header("Location: $url");
+            exit();
+        }
     } else {
         header("Location: ./index.php/home");
         exit();
