@@ -11,6 +11,7 @@ include_once('controllers/editProfile.controller.php');
 include_once('controllers/admin.controller.php');
 include_once('controllers/addproduct.controller.php');
 include_once('controllers/editPassword.controller.php');
+include_once('controllers/pharmacy.controller.php');
 
 $router = new Router();
 $router->addRoute('/home', function ($url) {
@@ -63,4 +64,8 @@ $router->addRoute('/addproduct', function ($url) {
 	print_r($addproduct->view());
 });
 
+$router->addRoute('/map', function($url){
+	$pharmacy = new PharmacyController();
+	print_r($pharmacy->view());
+});
 $router->run();
