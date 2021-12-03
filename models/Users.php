@@ -131,7 +131,7 @@ class Users
         if (mysqli_num_rows($result) > 0) // The username already exists
         {
             $sql2 =
-                "UPDATE users
+            "UPDATE users
             SET firstname = '$this->FirstName',lastname ='$this->LastName',phone = '$this->Phone'
             WHERE username = '$this->Username';";
             $result = $this->connection->query($sql2);
@@ -202,7 +202,6 @@ class Users
             return $result;
         }
     }
-
     public function removeStaff($userID) {
         $remove = "DELETE FROM `users` WHERE `uid` = '$userID'";
         mysqli_query($this->connection, $remove);

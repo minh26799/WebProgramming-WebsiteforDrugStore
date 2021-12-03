@@ -51,12 +51,13 @@ $total = 0;
             height: 80px;
             width: auto;
         }
+
         .info-table {
             position: relative;
             top: 20px;
         }
 
-        .edit-btn{
+        .edit-btn {
             width: 49%;
         }
     </style>
@@ -73,7 +74,7 @@ $total = 0;
             <div class="user-profile" style="width: 20%;">
                 <!-- CODE HERE, Đăng -->
                 <table class="table info-table" style="border-bottom: 1px #e3e3e3 solid;">
-                
+
                     <thead>
                         <tr>
                             <th scope="col">Field</th>
@@ -83,19 +84,19 @@ $total = 0;
                     <tbody>
                         <tr>
                             <td>Username</td>
-                            <td><?php if(isset($_SESSION['username'])) echo $_SESSION['username']; ?></td>
+                            <td><?php if (isset($_SESSION['username'])) echo $_SESSION['username']; ?></td>
                         </tr>
                         <tr>
                             <td>Firstname</td>
-                            <td><?php if(isset($_SESSION['firstname'])) echo $_SESSION['firstname']; ?></td>
+                            <td><?php if (isset($_SESSION['firstname'])) echo $_SESSION['firstname']; ?></td>
                         </tr>
                         <tr>
                             <td>Lastname</td>
-                            <td><?php if(isset($_SESSION['lastname'])) echo $_SESSION['lastname']; ?></td>
+                            <td><?php if (isset($_SESSION['lastname'])) echo $_SESSION['lastname']; ?></td>
                         </tr>
                         <tr>
                             <td>Phone</td>
-                            <td><?php if(isset($_SESSION['phone'])) echo $_SESSION['phone']; ?></td>
+                            <td><?php if (isset($_SESSION['phone'])) echo $_SESSION['phone']; ?></td>
                         </tr>
                     </tbody>
                 </table>
@@ -145,6 +146,8 @@ $total = 0;
                             <div style="text-align: center; padding: 50px;">
                                 <a class='btn btn-primary' style="font-size: 3rem;" href="./home">No transaction yet. Go buy some drugs!</a>
                             </div>
+                            <br>
+                            <br>
                     <?php }
                     } ?>
             </div>
