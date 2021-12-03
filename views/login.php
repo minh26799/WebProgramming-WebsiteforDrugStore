@@ -55,7 +55,7 @@
                 errorSelector: '.form-message',
                 rules: [
                     Validator.isRequired('#username-input', 'Username must be filled'),
-                    // Validator.usernameCheck('#username-input'),
+                    Validator.usernameCheck('#username-input'),
                     Validator.isRequired('#password-input', 'Password must be filled'),
                     Validator.minLength('#password-input', 8, 'Password is at least 8 characters'),
                 ],

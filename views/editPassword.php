@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+    session_start();
+?>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,19 +24,19 @@
         <span class="form-message" id="response" href="javascript: reload()"></span>
         <div class="account-info">
             <div class="form-group">
-                <input type="text" name="username" placeholder="*Username" id="Username" class="TextField form-control" rules="required" />
+                <input type="hidden" name="username" placeholder="*Username" id="Username" class="TextField form-control" value=<?php echo $_SESSION['username']; ?> />
                 <span class="form-message" id="uname"></span>
             </div>
             <div class="form-group">
-                <input type="password" name="password" placeholder="*Password" id="Password" class="PasswordField form-control" rules="required|min:6" />
+                <input type="password" name="password" placeholder="*Password" id="Password" class="PasswordField form-control" />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="password" name="newPassword" placeholder="*New Password" id="newPassword" class="PasswordField form-control" rules="required|min:6" />
+                <input type="password" name="newPassword" placeholder="*New Password" id="newPassword" class="PasswordField form-control" />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="password" name="password3" placeholder="*Re-type New Password" id="RetypePassword" class="PasswordField form-control" rules="required" />
+                <input type="password" name="password3" placeholder="*Re-type New Password" id="RetypePassword" class="PasswordField form-control" />
                 <span class="form-message"></span>
             </div>
             <input id="sign-up-button" type="submit" name="signup_submit" value="Edit" />
@@ -50,8 +52,6 @@
                 formGroupSelector: '.form-group',
                 errorSelector: '.form-message',
                 rules: [
-                    Validator.isRequired('#Username', 'Username must be filled'),
-                    Validator.usernameCheck('#Username', 'Username must be in correct form'),
                     Validator.isRequired('#Password', 'Password must be filled'),
                     Validator.minLength('#Password', 8, 'Password is at least 8 characters'),
                     Validator.passwordCheck('#Password'),

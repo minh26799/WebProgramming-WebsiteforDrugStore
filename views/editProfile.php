@@ -18,26 +18,25 @@
     </style>
     <title>Register</title>
 </head>
-
 <body>
     <form class="form" id="form-1" action="../controllers/editProfile_processing.php" method="post">
         <h1 class="register-content">Edit Profile</h1>
         <span class="form-message" id="response" href="javascript: reload()"></span>
         <div class="account-info">
             <div class="form-group">
-                <input type="text" name="username" placeholder="Username" id="Username" class="TextField form-control" rules="required" />
+                <input type="hidden" name="username" placeholder="Username" id="Username" class="TextField form-control" value=<?php echo $_SESSION['username']; ?> />
                 <span class="form-message" id="uname"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="firstname" placeholder="First Name" id="Firstname" class="TextField form-control" rules="required" value=<?php echo $_SESSION['firstname']; ?> />
+                <input type="text" name="firstname" placeholder="First Name" id="Firstname" class="TextField form-control" value=<?php echo $_SESSION['firstname']; ?> />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="lastname" placeholder="Last Name" id="Lastname" class="TextField form-control" rules="required" value='<?php echo $_SESSION['lastname']; ?>'  />
+                <input type="text" name="lastname" placeholder="Last Name" id="Lastname" class="TextField form-control" value='<?php echo $_SESSION['lastname']; ?>'  />
                 <span class="form-message"></span>
             </div>
             <div class="form-group">
-                <input type="text" name="phone" placeholder="Phone" id="Phone" class="TextField form-control" rules="required" value=<?php echo $_SESSION['phone']; ?>   />
+                <input type="text" name="phone" placeholder="Phone" id="Phone" class="TextField form-control" value=<?php echo $_SESSION['phone']; ?>   />
                 <span class="form-message"></span>
             </div>
         </div>
@@ -54,8 +53,6 @@
                 formGroupSelector: '.form-group',
                 errorSelector: '.form-message',
                 rules: [
-                    Validator.isRequired('#Username', 'Username must be filled'),
-                    Validator.usernameCheck('#Username', 'Username must be in correct form'),
                     Validator.isRequired('#Firstname', 'Please fill your first name'),
                     Validator.isRequired('#Lastname', 'Please fill your last name'),
                     Validator.isRequired('#Phone', 'Please fill your phone number'),
