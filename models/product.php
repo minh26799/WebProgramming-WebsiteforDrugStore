@@ -56,9 +56,23 @@ class Products
             return $result;
         }
     }
-    public function AddProduct($pname, $price, $treatment, $des, $phid, $quantity, $filename, $tmpname){
+    public function AddProduct($pname, $price, $treatment, $des, $quantity, $filename, $tmpname){
 
         $this->connect();
+
+        // $phama_sql = "SELECT 1 FROM `pharmacy` WHERE 'name' = '$phname'";
+
+        // $phama = mysqli_query($this->connection, $phama_sql);
+        
+        // if (mysqli_num_rows($presult) > 0) { 
+        //     $prow = $presult->fetch_assoc();
+        //     $phid = $prow['phid'];
+        // } else {
+        //     echo "Can not find the pharmacy". $phname;
+        //     exit;
+        // }
+
+        $phid = "21e1a6590ec74";
 
         $product_sql = "SELECT * FROM `products` WHERE `productname` = '$pname'";
 
@@ -68,27 +82,22 @@ class Products
             $row = $presult->fetch_assoc();
             $productID = $row['pid'];
             $belong_sql = "SELECT * FROM `belongto` WHERE `pharmacyid` = '$phid' AND `productid` = '$productID'";
-            echo "1";
+            
             $bresult = mysqli_query($this->connection, $belong_sql);
             // Nếu có belong to 1 pharmacy nào đó thì update
-            if (mysqli_num_rows($bresult) > 0) {
-                echo "2";
+            if (mysqli_num_rows($bresult) > 0) {      
                 $brow = $bresult->fetch_assoc();
                 $newQuantity = $brow['quantity'] + $quantity;
                 $updateQ = "UPDATE `belongto` SET `quantity` =  '$newQuantity' WHERE  `productid` = '$productID' AND `pharmacyid` = '$phid'";
                 mysqli_query($this->connection, $updateQ);
-                echo '<div> Updated successful </div>';
                 $this->connection->close();
             } else { // Không belong to pharmacy nào thì add mới 
-                echo "3";
                 $insert = $this->connection->query("INSERT into `belongto` (`pharmacyid`, `productid`, `quantity`) VALUES ('$phid', '$productID', '$quantity')");
-                echo '<div> Updated successful </div>';
                 $this->connection->close();
             } 
         } else { // Không tồn tại trong product thì add mới xong add vào belong to
             $statusMsg = '';
-            echo "4";
-            $backlink = ' <a href="./home">Go back</a>';
+            $backlink = ' <a href="../index.php/home">Go back</a>';
             // File upload path
             $targetDir = "../assets/images/";
             $fileName = basename($filename);
@@ -120,8 +129,9 @@ class Products
             }else{
                 $statusMsg = "The file <b>".$fileName. "</b> is already exist." . $backlink;
             }
-            // Display status message
-            echo $statusMsg;
+            $url = "../index.php/product_detail?id=$pid";
+            header("Location:" . $url);
+            exit();
         }
     }
 }

@@ -31,6 +31,24 @@ include '../controllers/listProduct.controller.php';
             top: 150px;
             z-index: -1;
         }
+        .add{
+            max-width: 500px;
+            margin: auto;
+            text-align: center;
+        }
+        .add input{
+            margin: 5px 5px;
+        }
+        .add .button{
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+        }
 
     </style>
 </head>
@@ -40,8 +58,10 @@ include '../controllers/listProduct.controller.php';
         <?php include "header.php"; ?>
     </header>
     <main role="main" class="flex-shrink-0">
+    <h3>ADD NEW PRODUCT</h3>
         <div class="container-fluid">
-            <body>
+            <body class="add">
+                
                 <form action="../controllers/addProduct_processing.php" method="post" enctype="multipart/form-data" >
                         Select Image File to Upload:
                     <input type="file" name="file">
@@ -50,11 +70,15 @@ include '../controllers/listProduct.controller.php';
                     <input type="text" name="treatment" placeholder="Treatment" id="treatment" class="TextField form-control" rules="required" />
                     <input type="text" name="description" placeholder="Description" id="description" class="TextField form-control" rules="required" />
                     <input type="number" name="quantity" placeholder="Quantity" id="quantity" class="TextField form-control" rules="required" />
-                    <input type="text" name="pharmacyname" placeholder="Pharmacy Name" id="pharmacyname" class="TextField form-control" rules="required" />
-                    <input type="submit" name="submit" value="Upload">
+                    <!-- <input type="text" name="pharmacyname" placeholder="Pharmacy Name" id="pharmacyname" class="TextField form-control" rules="required" /> -->
+                    <input class="button" type="submit" name="submit" value="Upload">
                 </form>
             </body>
         </div>
+        <br>
+        <br>
+        <br>
+        <br>
         <footer>
             <?php include "footer.php" ?>
         </footer>

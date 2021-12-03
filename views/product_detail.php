@@ -89,9 +89,6 @@ include '../controllers/productDetail.controller.php';
                                 <p><?php echo $detail['description'] ?></p>
                                 <?php if( $amount > 0) {?>
                                 <h4 class="available"><?php echo 'Available (' . $amount . ')'?></h4>
-                                <?php } else {?>
-                                <h4 class="sold-out"><?php echo 'Sold out'?></h4>
-                                <?php }?>
                                 <div class="input-group number-spinner">
                                     <span class="input-group-btn">
                                         <button class="btn btn-default" data-dir="dwn"><span class="glyphicon glyphicon-minus"></span></button>
@@ -100,12 +97,19 @@ include '../controllers/productDetail.controller.php';
                                     <?php $_SESSION['redirect_url'] = "../index.php/product_detail?id=" . $_GET['id']; ?>
 
                                     <form action="../controllers/cart_processing.php" method="POST" style="position: relative;">
+                                        <?php if (isset($_SESSION['id'])) { ?>
                                         <input type="hidden" name="userID" value="<?php echo $_SESSION['id'] ?>" />
+                                        <?php } ?>
                                         <input type="hidden" name="productID" value="<?php echo $_GET['id'] ?>" />
-                                        <input type="text" name="quantity" class="form-control text-center" onchange="checkAvilable(value)" value="0">
+                                        <input type="text" name="quantity" class="form-control text-center" onchange="checkAvilable(value)" value="1">
                                         <div id="submit-button">
-                                            <input type="submit" name="action" id="add" value="Add To Cart" class="btn btn-default" style="margin-right: 10px;"/>
-                                            <input type="submit" name="action" id="buy" value="Buy Now" class="btn btn-primary" />
+                                            <?php if(isset($_SESSION['id'])) { ?>     
+                                                <input type="submit" name="action" id="add" value="Add To Cart" class="btn btn-default" style="margin-right: 10px;"/>
+                                                <input type="submit" name="action" id="buy" value="Buy Now" class="btn btn-primary" />
+                                            <?php } else { ?>
+                                                <a href="./login" id="add" class="btn btn-default" role="button">Add to cart</a>
+                                                <a href="./login" id="buy" class="btn btn-primary" role="button">Buy now</a>
+                                            <?php }?>
                                         </div>
                                     </form>
 
@@ -113,6 +117,10 @@ include '../controllers/productDetail.controller.php';
                                         <button class="btn btn-default" data-dir="up"><span class="glyphicon glyphicon-plus"></span></button>
                                     </span>
                                 </div>
+                                <?php } else {?>
+                                <h4 class="sold-out"><?php echo 'Sold out'?></h4>
+                                <?php }?>
+                                
                             </div>
                         </div>
                     </div>
@@ -145,7 +153,7 @@ include '../controllers/productDetail.controller.php';
         var check = false;
         const amount = <?php echo $amount;?>;
         function checkAvilable(value){
-            if(value > parseInt(amount)){
+            if(value > parseInt(amount) || value == 0){
                 check = true;
             } else {
                 check = false;

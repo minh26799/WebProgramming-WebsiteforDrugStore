@@ -135,9 +135,10 @@ $(document).ready(function(){
                     </form>
                     <ul class="nav navbar-nav">
                         <li><a href="<?php if(isset($_SESSION['id'])) {echo "./profile?userid=".$_SESSION['id'];} else { echo "./login";} ?>"> <span class="glyphicon glyphicon-user"></span> <?php if(isset($_SESSION['fullname'])) {echo $_SESSION['fullname'];} else {echo "Login";} ?></a></li>
-                        <li><a href="<?php if(isset($_SESSION['id'])) {echo "./cart?userid=".$_SESSION['id'];}?>"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
+                        
                         <?php 
                             if(isset($_SESSION['fullname'])){ ?>
+                                <li><a href="<?php if(isset($_SESSION['id'])) {echo "./cart?userid=".$_SESSION['id'];}?>"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</a></li>
                                 <li><a href="../controllers/logout.php">Logout</a></li>
                         <?php } ?>
                         <?php 
@@ -158,7 +159,7 @@ $(document).ready(function(){
                         <li></li>
                     </ul>
                     <ul class="nav navbar-nav left">
-                        <li><a href="#">FIND A PHARMACY NEAR YOU</a></li>
+                        <li><a href="./map">FIND A PHARMACY NEAR YOU</a></li>
                         <li><a href="#"><span class="glyphicon glyphicon-earphone"></span>Contact: 0123456789</a></li>
                     </ul>
                 </div>

@@ -16,7 +16,8 @@ VALUES ('fda786c58c3c4', 'user1@gmail.com', 'e64b78fc3bc91bcbc7dc232ba8ec59e0', 
 
 $phars = "INSERT INTO `pharmacy`(`phid`, `name`, `latitude`, `longitude`)
 VALUES ('a43ed8d9c1874','DR. H', 10.77376426982302, 106.66056565582056),
-('21e1a6590ec74','BK pharmacy', 10.770890360902907, 106.65593515361698)";
+('21e1a6590ec74','BK pharmacy', 10.770890360902907, 106.65593515361698),
+('21e3d6590ec25','Pharmacy 3/2', 10.7671, 106.666)";
 
 $products = "INSERT INTO `products` (`pid`, `productname`, `condition`, `price`, `description`)
 VALUES ('618005651c83c','Acenocoumarol','Cardiovascular and Blood Pressure',200000,'Indications for occurrence or risk of phlebitis, pulmonary embolism, atrial fibrillation, valvular malformation, prosthetic heart valve, patients with severe heart failure with EF < 30%'),

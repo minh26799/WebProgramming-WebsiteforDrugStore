@@ -144,7 +144,16 @@ $total = 0;
                         <?php } else { ?>
                             <div style="text-align: center; padding: 50px;">
                                 <a class='btn btn-primary' style="font-size: 3rem;" href="./home">No transaction yet. Go buy some drugs!</a>
+                                
                             </div>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
+                            <br>
                     <?php }
                     } ?>
             </div>
